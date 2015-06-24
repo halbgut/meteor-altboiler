@@ -10,12 +10,7 @@ Using the knowledge gained form writing [Meteor-without-blocking-the-rendering-p
 
 ```
 altboiler({
-  serveMeteor: true,
-  defaultAction: altboiler.getTemplate.bind({something: 2}, 'templateName')
-})
-
-altboiler.route('someRoute', {
-  action: altboiler.getTemplate.bind({something: 2}, 'someRoute')
+  action: altboiler.getTemplate.bind({something: 2}, 'templateName')
 })
 ```
 
@@ -25,31 +20,16 @@ altboiler.route('someRoute', {
 
 **options** - `Object`:
 An object containing configuration for `altboilder`.
-  * **serveMeteor** - `Boolean`, *true*: Wether or not meteor itself should be served.
-  * **defaultAction** - `HTMLString` | `TemplateName` | `HTMLReturningFunction`, *true*: This is what will be served to all routes before meteor.
-  * **onLoad** - `FunctionName`: The name of a function defined in side the `action`
+  * **action** - `HTMLString` | `TemplateName` | `HTMLReturningFunction`, *true*: This is what will be served to all routes before meteor.
+  * **onLoad** - `FunctionName`: The name of a function defined in side the `action`. The function is asyncronous. So it's passed a callback that you have to call inside it.
 
-This package exports a variable `altboilder`. It's a helper function that takes an object and configures `altboiler` with it.
-
-#### `altboiler.route(route[, options])`
-
-**route** - `String`:
-A simple url. It's completely static (for now). That means no parameters are possible.
-
-**options** - `Object`:
-An Object that contains options for a certain route.
-  * **action** - `HTMLString` | `TemplateName` | `HTMLReturningFunction`: This is what will  be served to all routes before meteor. This overrides the `altboiler.config.defaultAction`
-  * **onLoad** - `FunctionName`: The name of a function defined in side the `action`. This doesn't override the `altboiler.config.onLoad`.
+This package exports a variable `altboilder`. It's the function that installs the `connect` handler.
 
 #### `altboiler.getTemplate(templateName)`
 
 **templateName** - `TemplateName`
 
-The templates gets rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr).
-
-##### `Boilerplate(arch, manifest[, options])`
-
-This is the core of the whole thing. It overrides the meteor-core `boilerplate-generator`-packages' `Boilerplate` object.
+The templates gets rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
 
 #### Definitions
 
@@ -61,7 +41,3 @@ The name of a file (without it's extension) located inside the _private/template
 
 ##### `HTMLReturningFunction`
 A function that return an HTML string.
-
-## Goals
-
-With this package you can configure a piece of HTML that is loaded before the standard meteor WebApp kicks in. The WebApp is loaded in a non-blocking manner. You can configure different HTML to be loaded on different routes.
