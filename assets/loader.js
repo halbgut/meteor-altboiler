@@ -32,7 +32,7 @@ altboiler.loader = {
 
     includes.forEach(function (include, index) {
       self.fetchScript(
-        urlPrefix + include.url,
+        urlPrefix + include,
         self.depChecker(loadedChecker(index - 1), loadScript)
       )
     })

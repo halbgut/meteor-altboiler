@@ -1,10 +1,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Loading...</title>
   <script type="text/javascript">
     var __meteor_runtime_config__ = {{ meteorRuntimeConfig }}
   </script>
+  {{{ head }}}
 </head>
 <body>
   <div id="boilerPlateLoader">
@@ -14,7 +14,7 @@
     {{{ content }}}
     <script type="text/javascript">
       {{{ script }}}
-      load({{ includes }})
+      load({{ jsIncludes }})
     </script>
   </div>
 </body>

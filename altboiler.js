@@ -8,7 +8,7 @@ altboiler = function altboiler (options) {
   options = options || {}
   altboiler.config = _.extend(options, altboiler.defaults)
   WebApp.connectHandlers.use(function (req, res, next) {
-    res.end(altboiler.Boilerplate(WebApp.clientPrograms, WebApp.defaultArch))
+    res.end(altboiler.Boilerplate(WebApp.clientPrograms))
   })
 }
 
@@ -31,10 +31,10 @@ _.extend(altboiler, {
   },
 
   // Returns the generated boilerplate
-  Boilerplate: function (manifests, arch) {
+  Boilerplate: function (manifests) {
     return altboiler.getTemplate.call(
       boilerUtils.getBoilerTemplateData(
-        maniUtils.getIncludes(manifests[arch].manifest),
+        maniUtils.getIncludes(manifests[currentArch].manifest),
         (boilerUtils.renderAction(altboiler.config.action)),
         altboiler.config
       ),

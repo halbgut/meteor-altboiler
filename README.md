@@ -47,3 +47,4 @@ A function that return an HTML string.
 * Check for types
   * css
   * head
+* Request loader.js via AJAX
