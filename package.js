@@ -27,21 +27,19 @@ Package.onUse(function(api) {
   )
   api.addFiles(
     [
-      'lib/boilerplate_utils.js',
-      'lib/altboiler_utils.js'
+      'lib/maniUtils.js',
+      'lib/templUtils.js',
+      'lib/boilerUtils.js'
     ],
     'server'
   )
   api.addFiles(
     [
-      'altboiler.js',
-      'boilerplate.js',
-      'helpers.js'
+      'altboiler.js'
     ],
     'server'
   )
   api.export('altboiler')
-  api.export('Boilerplate')
 });
 
 Package.onTest(function(api) {

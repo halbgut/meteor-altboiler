@@ -1,12 +1,17 @@
-fs = Npm.require('fs')
+
+// Get some stuff closer
+var maniUtils = altboilerScope._maniUtils
+var templUtils = altboilerScope._templUtils
+var boilerUtils = altboilerScope._boilerUtils
 
 altboiler = function altboiler (options) {
   options = options || {}
   altboiler.config = _.extend(options, altboiler.defaults)
-  altboiler.renderAction()
+  WebApp.connectHandlers.use(function (req, res, next) {
+    res.end(altboiler.Boilerplate(WebApp.clientPrograms, WebApp.defaultArch))
+  })
 }
 
-_.extend(altboiler, altboilerUtils)
 _.extend(altboiler, {
   config: false,
   defaults: {
@@ -16,36 +21,24 @@ _.extend(altboiler, {
     action: 'default'
   },
 
-  renderedAction: false,
-
   // Renders a template and returns HTML
   // You can bind a context to it to use it as a context for the template
   getTemplate: function getTemplate (templateName) {
-    var rawTemplate = altboiler.getRawTemplate(templateName)
+    var rawTemplate = templUtils.getRawTemplate(templateName)
     if(!rawTemplate) return templateName
     SSR.compileTemplate(templateName, rawTemplate)
     return SSR.render(templateName, this)
   },
 
-  route: function route (path, name) {},
-
-  renderAction: function renderAction () {
-    var action = altboiler.config.action
-    altboiler.renderedAction = {
-      'string': altboiler.getTemplate,
-      'function': action
-    }[typeof action](action)
-    return altboiler.renderedAction
+  // Returns the generated boilerplate
+  Boilerplate: function (manifests, arch) {
+    return altboiler.getTemplate.call(
+      boilerUtils.getBoilerTemplateData(
+        maniUtils.getIncludes(manifests[arch].manifest),
+        (boilerUtils.renderAction(altboiler.config.action)),
+        altboiler.config
+      ),
+      'main'
+    )
   },
-
-  getTemplateData: function getTemplateData (manifest, content, config) {
-    var data = {
-      script: Assets.getText('assets/loader.js'),
-      styles: Assets.getText('assets/styles.css'),
-      content: content,
-      includes: EJSON.stringify(altboiler.getIncludes(manifest)),
-      meteorRuntimeConfig: EJSON.stringify(__meteor_runtime_config__ || {})
-    }
-    return data
-  }
 })
