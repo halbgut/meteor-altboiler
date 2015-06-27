@@ -4,12 +4,16 @@ var maniUtils = altboilerScope._maniUtils
 var templUtils = altboilerScope._templUtils
 var boilerUtils = altboilerScope._boilerUtils
 
+/*
+ * This listenes for all routes,
+ * but doesn't conflict with any resources
+ */
+WebApp.connectHandlers.use(function (req, res, next) {
+  res.end(altboiler.Boilerplate(WebApp.clientPrograms))
+})
+
 altboiler = function altboiler (options) {
-  options = options || {}
   altboiler.config = _.extend(options, altboiler.config)
-  WebApp.connectHandlers.use(function (req, res, next) {
-    res.end(altboiler.Boilerplate(WebApp.clientPrograms))
-  })
 }
 
 altboiler.config = {

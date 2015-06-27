@@ -23,7 +23,7 @@ An object containing the configuration for `altboilder`.
   * **action** - `HTMLString` | `TemplateName` | `HTMLReturningFunction`, *true*: This is what will be served to all routes before meteor.
   * **onLoad** - `FunctionName`: The name of a function defined in side the `action`. The function is asynchronous. So it's passed a callback that you have to call inside it.
 
-This package exports a variable `altboilder`. It's the function that installs the `connect` handler.
+This function is a helper to configure altboiler. You shouldn't access `altboilder.config` directly.
 
 ### `altboiler.getTemplate(templateName)`
 
