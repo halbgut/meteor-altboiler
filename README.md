@@ -19,9 +19,9 @@ altboiler({
 #### `altboiler(options)`
 
 **options** - `Object`:
-An object containing configuration for `altboilder`.
+An object containing the configuration for `altboilder`.
   * **action** - `HTMLString` | `TemplateName` | `HTMLReturningFunction`, *true*: This is what will be served to all routes before meteor.
-  * **onLoad** - `FunctionName`: The name of a function defined in side the `action`. The function is asyncronous. So it's passed a callback that you have to call inside it.
+  * **onLoad** - `FunctionName`: The name of a function defined in side the `action`. The function is asynchronous. So it's passed a callback that you have to call inside it.
 
 This package exports a variable `altboilder`. It's the function that installs the `connect` handler.
 
@@ -29,7 +29,7 @@ This package exports a variable `altboilder`. It's the function that installs th
 
 **templateName** - `TemplateName`
 
-The templates gets rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
+The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
 
 #### Definitions
 
@@ -37,14 +37,14 @@ The templates gets rendered using `meteorhacks:ssr`. So you can also register he
 A string of HTML.
 
 ##### `TemplateName`
-The name of a file (without it's extension) located inside the _private/templates/_ directory. The file has to have the `.html` extension.
+The name of a file (without its extension) located inside the _private/templates/_ directory. The file has to have the `.html` extension.
 
 ##### `HTMLReturningFunction`
 A function that return an HTML string.
 
 ## TODO
 
-* Essemble all the scripts server side
+* Assemble all the scripts server side
 * Env-var for local vs production
 * Custom CSS-files
 * Custom JS-files
