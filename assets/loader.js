@@ -1,23 +1,23 @@
 // When this is used client side, altboiler wont be defined
 var loader = {}
 
-loader.load = function load (includes, onLoadQue) {
+loader.load = function load (includes, onLoadQueue) {
   var urlPrefix = jsCssPrefix = (__meteor_runtime_config__ && __meteor_runtime_config__.ROOT_URL_PATH_PREFIX) || '';
-  loader.onLoadQue.concat(onLoadQue)
+  loader.onLoadQueue.concat(onLoadQueue)
   loader.includeRenderer(document.head, includes, urlPrefix)
 }
 
-loader.onLoadQue = []
+loader.onLoadQueue = []
 
 loader.onLoad = function onLoad (func) {
   if(typeof func == 'object') return func.forEach(loader.onLoad)
   if(typeof func == 'string') func = eval('return ' + func)
-  if(func) loader.onLoadQue.push(func)
+  if(func) loader.onLoadQueue.push(func)
 }
 
-loader.runOnLoadQue = function runOnLoadQue (que) {
-  que = que || loader.onLoadQue
-  que.pop()(loader.runOnLoadQue.bind(null, que))
+loader.runOnLoadQueue = function runOnLoadQueue (queue) {
+  queue = queue || loader.onLoadQueue
+  queue.pop()(loader.runOnLoadQueue.bind(null, queue))
 }
 
 loader.appender = function appender (head, body) {
@@ -55,7 +55,7 @@ loader.includeRenderer = function includeRenderer (appendTo, includes, urlPrefix
       loader.depChecker(loadedChecker(index - 1), loadScript)
     )
   })
-  loader.depChecker(loadedChecker(includes.length - 1), loader.runOnLoadQue)()
+  loader.depChecker(loadedChecker(includes.length - 1), loader.runOnLoadQueue)()
 }
 
 loader.createScriptTag = function createScriptTag (script) {
