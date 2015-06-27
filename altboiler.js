@@ -6,15 +6,13 @@ var boilerUtils = altboilerScope._boilerUtils
 
 altboiler = function altboiler (options) {
   options = options || {}
-  altboiler.config = _.extend(options, altboiler.defaults)
+  altboiler.config = _.extend(options, altboiler.config)
   WebApp.connectHandlers.use(function (req, res, next) {
     res.end(altboiler.Boilerplate(WebApp.clientPrograms))
   })
 }
 
-altboiler.config = false
-
-altboiler.defaults = {
+altboiler.config = {
   onLoad: [function fadeOut (next) {
     document.getElementById('boilerPlateLoader').style.opacity = 0
     next()
@@ -52,7 +50,6 @@ altboiler.Boilerplate = function Boilerplate (manifests) {
     boilerUtils.getBoilerTemplateData(
       maniUtils.getIncludes(manifests[currentArch].manifest),
       (boilerUtils.renderAction(altboiler.config.action)),
-      altboiler.config,
       altboiler.config.onLoad
     ),
     'main'
