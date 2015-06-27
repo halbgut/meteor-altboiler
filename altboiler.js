@@ -15,7 +15,7 @@ altboiler = function altboiler (options) {
 altboiler.config = {
   onLoad: [function fadeOut (next) {
     document.getElementById('boilerPlateLoader').style.opacity = 0
-    next()
+    setTimeout(next, 200)
   }],
   action: 'default'
 }
