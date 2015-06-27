@@ -41,3 +41,9 @@ The name of a file (without it's extension) located inside the _private/template
 
 ##### `HTMLReturningFunction`
 A function that return an HTML string.
+
+## TODO
+
+* Check for types
+  * css
+  * head
