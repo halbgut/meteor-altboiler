@@ -31,6 +31,12 @@ This package exports a variable `altboilder`. It's the function that installs th
 
 The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
 
+#### `altboiler.onLoad(funcToHookUp)`
+
+**funcToHookUp** - `FunctionName` | `Function`: The function to be triggered when the scripts are loaded. The function has to take one argument `next` which calls the next function in the `onLoad` queue.
+
+The passed function is pushed to `config.onLoad`. That function is passed to the client using `.toString` and is then executed in a different context. This means, that the function can't have any *dependencies* (except for stuff loaded into the boilerplate).
+
 #### Definitions
 
 ##### `HTMLString`
