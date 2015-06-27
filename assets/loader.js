@@ -10,19 +10,20 @@ loader.load = function load (includes, onLoadQue) {
 loader.onLoadQue = []
 
 loader.onLoad = function onLoad (func) {
+  if(typeof func == 'object') return func.forEach(loader.onLoad)
   if(typeof func == 'string') func = eval('return ' + func)
   if(func) loader.onLoadQue.push(func)
 }
 
 loader.runOnLoadQue = function runOnLoadQue (que) {
   que = que || loader.onLoadQue
-  que.shift()(loader.runOnLoadQue.bind(null, que))
+  que.pop()(loader.runOnLoadQue.bind(null, que))
 }
 
 loader.appender = function appender (head, body) {
   return function appendBodyAndHead (next) {
-    if(head) document.head.innerHTML += head
-    if(body) document.body.innerHTML += body
+    if(head) document.head.innerHTML += decodeURIComponent(head)
+    if(body) document.body.innerHTML += decodeURIComponent(body)
     next()
   }
 }
