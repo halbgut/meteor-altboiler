@@ -4,7 +4,6 @@
   <script type="text/javascript">
     var __meteor_runtime_config__ = {{ meteorRuntimeConfig }}
   </script>
-  {{{ head }}}
 </head>
 <body>
   <div id="boilerPlateLoader">
@@ -14,7 +13,11 @@
     {{{ content }}}
     <script type="text/javascript">
       {{{ script }}}
-      load({{ jsIncludes }})
+      altboiler.loader.load({{ jsIncludes }})
+      altboiler.loader.onLoad(altboiler.loader.appender(
+        {{ head }},
+        {{ body }}
+      ))
     </script>
   </div>
 </body>
