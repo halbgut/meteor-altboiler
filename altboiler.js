@@ -10,7 +10,7 @@ var boilerUtils = altboilerScope._boilerUtils
  * It's used in different places inside this script,
  * So its easiest to just put it here.
  */
-var allIncludes = maniUtils.getIncludes(MANIFESTS[CURRENT_ARCH].manifest)
+var allIncludes = maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest)
 
 /*
  * This listenes for all routes,
@@ -41,6 +41,9 @@ altboiler = function altboiler (options) {
  * Just sets `assets/default.html` as it's action
  */
 altboiler.config = {
+  /* action
+   * The action called inside the load template
+   */
   action: 'default'
 }
 
