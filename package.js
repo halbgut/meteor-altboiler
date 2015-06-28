@@ -30,17 +30,12 @@ Package.onUse(function(api) {
       'lib/statics.js',
       'lib/maniUtils.js',
       'lib/templUtils.js',
-      'lib/boilerUtils.js'
-    ],
-    'server'
-  )
-  api.addFiles(
-    [
+      'lib/boilerUtils.js',
       'altboiler.js'
     ],
     'server'
   )
-  api.export('altboiler')
+  api.export('altboiler', 'server')
 });
 
 Package.onTest(function(api) {

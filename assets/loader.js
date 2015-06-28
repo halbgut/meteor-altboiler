@@ -27,7 +27,6 @@ loader.removerById = function removerById (elementId) {
   return function (next) {
     var removeThis = document.getElementById(elementId)
     removeThis.parentNode.removeChild(removeThis)
-    console.log('rm')
     next()
   }
 }
