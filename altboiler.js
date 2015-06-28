@@ -36,19 +36,11 @@ altboiler = function altboiler (options) {
   return altboiler.config = _.extend(options, altboiler.config)
 }
 
-/*
+/* altboiler.config
  * The default configuration
  * Just sets `assets/default.html` as it's action
  */
 altboiler.config = {
-  /* fadeOut(next)
-   * `next` - The callback
-   * A default onLoad hook that let's the `altboiler_boilerPlateLoader` disapear
-   */
-  onLoad: [function fadeOut (next) {
-    document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
-    setTimeout(next, 200)
-  }],
   action: 'default'
 }
 
@@ -62,9 +54,23 @@ altboiler.config = {
  * (except for ones defined inside the script you pass to the client)
  */
 altboiler.onLoad = function onLoad (func) {
-  altboiler.config.onLoad.push(func)
-  return altboiler.config.onLoad.length - 1
+  altboiler.onLoadHooks.push(func)
+  return altboiler.onLoadHooks.length - 1
 }
+
+/* altboiler.onLoadHooks
+ * An array contains all onLoad hooks.
+ */
+altboiler.onLoadHooks = [
+  /* fadeOut(next)
+   * `next` - The callback
+   * A default onLoad hook that let's the `altboiler_boilerPlateLoader` disapear
+   */
+  function fadeOut (next) {
+    document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
+    setTimeout(next, 200)
+  }
+]
 
 /* altboiler.getTemplate(templateName)
  * `templateName` - The name of a template
@@ -90,7 +96,7 @@ altboiler.Boilerplate = function Boilerplate () {
       allIncludes,
       APP_SCRIPT,
       (boilerUtils.renderAction(altboiler.config.action)),
-      altboiler.config.onLoad
+      altboiler.onLoadHooks
     ),
     'main'
   )
