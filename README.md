@@ -50,7 +50,6 @@ A function that return an HTML string.
 
 ## TODO
 
-* Env-var for local vs production
 * Custom CSS-files
 * Custom JS-files
 * Request loader.js via AJAX
