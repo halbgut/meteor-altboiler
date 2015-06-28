@@ -15,10 +15,7 @@
       {{{ script }}}
       altboiler.loader.onLoad(altboiler.loader.removerById('altboiler_boilerPlateLoader'))
       altboiler.loader.onLoad({{ onLoadHooks }})
-      altboiler.loader.onLoad(altboiler.loader.appender(
-        {{{ head }}},
-        {{{ body }}}
-      ))
+      altboiler.loader.onLoad(altboiler.loader.appender({{{ head }}}, {{{ body }}}))
       altboiler = altboiler
     </script>
   </div>
