@@ -4,12 +4,18 @@ var maniUtils = altboilerScope._maniUtils
 var templUtils = altboilerScope._templUtils
 var boilerUtils = altboilerScope._boilerUtils
 
+var allIncludes = maniUtils.getIncludes(MANIFESTS[CURRENT_ARCH].manifest)
+
 /*
  * This listenes for all routes,
  * but doesn't conflict with any resources
  */
 WebApp.connectHandlers.use(function (req, res, next) {
-  res.end(altboiler.Boilerplate(WebApp.clientPrograms))
+  res.end(altboiler.Boilerplate())
+})
+
+WebApp.rawConnectHandlers.use(APP_SCRIPT, function (req, res, next) {
+  res.end(maniUtils.getScripts(allIncludes['js']))
 })
 
 altboiler = function altboiler (options) {
@@ -18,7 +24,8 @@ altboiler = function altboiler (options) {
 
 altboiler.config = {
   onLoad: [function fadeOut (next) {
-    document.getElementById('boilerPlateLoader').style.opacity = 0
+    console.log('op')
+    document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
     setTimeout(next, 200)
   }],
   action: 'default'
@@ -49,10 +56,11 @@ altboiler.getTemplate = function getTemplate (templateName) {
 }
 
 // Returns the generated boilerplate
-altboiler.Boilerplate = function Boilerplate (manifests) {
+altboiler.Boilerplate = function Boilerplate () {
   return altboiler.getTemplate.call(
     boilerUtils.getBoilerTemplateData(
-      maniUtils.getIncludes(manifests[currentArch].manifest),
+      allIncludes,
+      APP_SCRIPT,
       (boilerUtils.renderAction(altboiler.config.action)),
       altboiler.config.onLoad
     ),

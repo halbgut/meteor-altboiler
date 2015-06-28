@@ -50,15 +50,7 @@ A function that return an HTML string.
 
 ## TODO
 
-* Assemble all the scripts server side
 * Env-var for local vs production
 * Custom CSS-files
 * Custom JS-files
 * Request loader.js via AJAX
-
-## Known Issues
-
-### Spiderable - on it
-Right now the [`spiderable core package`](https://github.com/meteor/meteor/tree/devel/packages/spiderable) will serve whole Meteor core to [robots](https://imgur.com/gallery/q2W0N). So that will pull your rating down. But now worries that's a high prority for me.
-
-I might be wrong dough. It might remove script tags before saving the static HTML.
