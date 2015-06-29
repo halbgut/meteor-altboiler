@@ -33,7 +33,7 @@ WebApp.rawConnectHandlers.use(APP_SCRIPT, function (req, res, next) {
  * Adds the options to the exsisting `altboiler.config`.
  */
 altboiler = function altboiler (options) {
-  return altboiler.config = _.extend(options, altboiler.config)
+  return altboiler.config = _.extend(altboiler.config, options)
 }
 
 /* altboiler.config
