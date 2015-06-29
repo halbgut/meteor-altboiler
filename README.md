@@ -43,13 +43,14 @@ The passed function is pushed to `config.onLoad`. That function is passed to the
 A string of HTML.
 
 #### `TemplateName`
-The name of a file (without its extension) located inside the _private/templates/_ directory. The file has to have the `.html` extension.
+A [asset's](http://docs.meteor.com/#/full/assets) name. This can be. The file has to have the `.html` extension.
 
 #### `HTMLReturningFunction`
 A function that return an HTML string.
 
 ## TODO
 
+* Add tests
 * Custom CSS-files
 * Custom JS-files
 * Request loader.js via AJAX
