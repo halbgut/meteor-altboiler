@@ -12,9 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
-  api.use('underscore')
-  api.use('webapp')
-  api.use('meteorhacks:ssr')
+  api.use(['underscore', 'webapp', 'meteorhacks:ssr@2.1.2'])
   api.addFiles(
     [
       'assets/main.html',
@@ -41,5 +39,10 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('kriegslustig:altboiler');
-  // api.addFiles('altboiler-tests.js');
+  api.addFiles(
+    [
+      'tests/altboiler.js'
+    ],
+    'server'
+  );
 });
