@@ -27,7 +27,6 @@ Package.onUse(function(api) {
     [
       'lib/statics.js',
       'lib/maniUtils.js',
-      'lib/templUtils.js',
       'lib/boilerUtils.js',
       'altboiler.js'
     ],

@@ -44,7 +44,7 @@ altboiler.config = {
   /* action
    * The action called inside the load template
    */
-  action: 'default'
+  action: 'assets/default.html'
 }
 
 /* altboiler.onLoad(func)
@@ -76,13 +76,13 @@ altboiler.onLoadHooks = [
 ]
 
 /* altboiler.getTemplate(templateName)
- * `templateName` - The name of a template
+ * `templateName` - The filename of a template
  * returns the rendered template if its found, if not it returns `templateName`
  * Renders a template and returns HTML
  * You can bind a context to it to use it as a context for the template
  */
 altboiler.getTemplate = function getTemplate (templateName) {
-  var rawTemplate = templUtils.getRawTemplate(templateName)
+  var rawTemplate = Assets.getText(templateName)
   if(!rawTemplate) return templateName
   SSR.compileTemplate(templateName, rawTemplate)
   return SSR.render(templateName, this)
@@ -101,6 +101,6 @@ altboiler.Boilerplate = function Boilerplate () {
       (boilerUtils.renderAction(altboiler.config.action)),
       altboiler.onLoadHooks
     ),
-    'main'
+    'assets/main.html'
   )
 }

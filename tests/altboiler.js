@@ -12,7 +12,7 @@ Tinytest.add('altboiler', function (test) {
 Tinytest.add('altboiler.config', function (test) {
   var testInst = Object.create(altboiler)
   test.equal(typeof testInst.config, 'object', 'altboiler.config should be an object')
-  test.equal(testInst.config.action, 'default', 'altboiler.config should have "default" as its default action')
+  test.equal(testInst.config.action, 'assets/default.html', 'altboiler.config should have "default.html" as its default action')
 })
 
 Tinytest.add('altboiler.onLoad', function (test) {
