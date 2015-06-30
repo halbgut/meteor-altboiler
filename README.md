@@ -25,9 +25,10 @@ An object containing the configuration for `altboilder`.
 
 This function is a helper to configure altboiler. You shouldn't access `altboilder.config` directly.
 
-### `altboiler.getTemplate(templateName)`
+### `altboiler.getTemplate(templateName, assets)`
 
 **templateName** - `TemplateName`
+**Assets** - `Obejct` - The current contexts `Assets` obejct
 
 The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
 
