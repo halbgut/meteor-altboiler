@@ -92,7 +92,7 @@ altboiler.getTemplate = function getTemplate (templateName, assets) {
 
 /* altboiler.css(css)
  * `css` - A string containing CSS
- * retruns the index of the CSS inside `hookedCss`
+ * returns the index of the CSS inside `hookedCss`
  * Pushes strings to `hookedCss`
  */
 altboiler.css = function css (css) {
@@ -108,6 +108,22 @@ altboiler.hookedCss = [
   Assets.getText('assets/styles.css')
 ]
 
+/* altboiler.js(js)
+ * `js` - A string containing JS
+ * returns the index of the JS inside `hookedJs`
+ * Pushes strings to `hookedJs`
+ */
+altboiler.js = function js (js) {
+  return altboiler.hookedJs.push(js) - 1
+}
+
+/* altboiler.hookedJs
+ * An array containing js
+ * The JS will be rendered into the loading template
+ * (after loader.js)
+ */
+altboiler.hookedJs = []
+
 /* altboiler.Boilerplate()
  * returns the rendered boilerplate
  * It renderes the template `assets/main.html`
@@ -120,7 +136,8 @@ altboiler.Boilerplate = function Boilerplate () {
       APP_SCRIPT,
       (boilerUtils.renderAction(altboiler.config.action)),
       altboiler.onLoadHooks,
-      altboiler.hookedCss
+      altboiler.hookedCss,
+      altboiler.hookedJs
     ),
     'assets/main.html'
   )
