@@ -73,5 +73,5 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
   test.matches(cleanLB(testInst.Boilerplate()), /<body>.*"damn\strolls"/gm, 'The action should be rendered inside the body')
   test.isTrue(testInst.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
   testInst.css('div {display: block;}')
-  test.matches(cleanLB(testInst.Boilerplate()), /<styles>.*div\s{display:\sblock;}/gm, 'The hookedCss should be rendered')
+  test.matches(cleanLB(testInst.Boilerplate()), /<style\stype="text\/css">.*div\s{display:\sblock;}/gm, 'The hookedCss should be rendered')
 })

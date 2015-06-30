@@ -57,8 +57,7 @@ altboiler.config = {
  * (except for ones defined inside the script you pass to the client)
  */
 altboiler.onLoad = function onLoad (func) {
-  altboiler.onLoadHooks.push(func)
-  return altboiler.onLoadHooks.length - 1
+  return altboiler.onLoadHooks.push(func) - 1
 }
 
 /* altboiler.onLoadHooks
@@ -91,6 +90,24 @@ altboiler.getTemplate = function getTemplate (templateName, assets) {
   return SSR.render(templateName, this)
 }
 
+/* altboiler.css(css)
+ * `css` - A string containing CSS
+ * retruns the index of the CSS inside `hookedCss`
+ * Pushes strings to `hookedCss`
+ */
+altboiler.css = function css (css) {
+  return altboiler.hookedCss.push(css) - 1
+}
+
+/* altboiler.hookedCss
+ * An array containing CSS
+ * The CSS will be rendered into the loading template
+ */
+altboiler.hookedCss = [
+  /* The default styles, they may be removed by accessing this array directly */
+  Assets.getText('assets/styles.css')
+]
+
 /* altboiler.Boilerplate()
  * returns the rendered boilerplate
  * It renderes the template `assets/main.html`
@@ -102,7 +119,8 @@ altboiler.Boilerplate = function Boilerplate () {
       allIncludes,
       APP_SCRIPT,
       (boilerUtils.renderAction(altboiler.config.action)),
-      altboiler.onLoadHooks
+      altboiler.onLoadHooks,
+      altboiler.hookedCss
     ),
     'assets/main.html'
   )
