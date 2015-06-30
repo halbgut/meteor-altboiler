@@ -27,7 +27,7 @@ This function is a helper to configure altboiler. You shouldn't access `altboild
 
 ### `altboiler.getTemplate(templateName, assets)`
 
-**templateName** - `TemplateName`
+**templateName** - `TemplateName` | `Template`
 **Assets** - `Obejct` - The current contexts `Assets` obejct
 
 The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
@@ -44,7 +44,10 @@ The passed function is pushed to `config.onLoad`. That function is passed to the
 A string of HTML.
 
 #### `TemplateName`
-A [asset's](http://docs.meteor.com/#/full/assets) name. This can be. The file has to have the `.html` extension.
+A [asset's](http://docs.meteor.com/#/full/assets) name. The file has to have the `.html` extension.
+
+#### `Template`
+A string containing a valid spacebars template
 
 #### `HTMLReturningFunction`
 A function that return an HTML string.

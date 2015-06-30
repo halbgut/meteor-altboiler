@@ -85,7 +85,7 @@ altboiler.onLoadHooks = [
  */
 altboiler.getTemplate = function getTemplate (templateName, assets) {
   assets = assets || Assets
-  var rawTemplate = assets.getText(templateName)
+  var rawTemplate = templateName.substr(-5) === '.html' ? assets.getText(templateName) : templateName
   if(!rawTemplate) return templateName
   SSR.compileTemplate(templateName, rawTemplate)
   return SSR.render(templateName, this)
