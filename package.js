@@ -33,6 +33,7 @@ Package.onUse(function(api) {
     'server'
   )
   api.export('altboiler', 'server')
+  api.export(['altboiler', '_Altboiler', '_altboilerScope'], 'server')
 });
 
 Package.onTest(function(api) {
@@ -51,4 +52,5 @@ Package.onTest(function(api) {
     ],
     'server'
   );
+  api.export('Altboiler')
 });
