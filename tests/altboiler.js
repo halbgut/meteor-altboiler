@@ -64,7 +64,7 @@ Tinytest.add('altboiler.js', function (test) {
   var testInst = Object.create(altboiler)
   test.equal(typeof testInst.js, 'function', 'altboiler should have a property `js` which is a function')
   test.equal(typeof testInst.js('console.log("moaarr drama!")'), 'number', 'It should return the index of the newly inserted js')
-  test.equal(testInst.hookedJs[testInst.js('console.log("moaarr drama!")')], 'div {display: block;}', 'It should push the js to hookedJs')
+  test.equal(testInst.hookedJs[testInst.js('console.log("moaarr drama!")')], 'console.log("moaarr drama!")', 'It should push the js to hookedJs')
 })
 
 Tinytest.add('altboiler.Boilerplate', function (test) {
