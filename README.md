@@ -38,6 +38,12 @@ The templates get rendered using `meteorhacks:ssr`. So you can also register hel
 
 The passed function is pushed to `config.onLoad`. That function is passed to the client using `.toString` and is then executed in a different context. This means, that the function can't have any *dependencies* (except for stuff loaded into the boilerplate).
 
+### `altboiler.css(css)`
+
+**css** - `String` - A string containing CSS
+
+The CSS added via this function will be rendered inside the loading template. It pushes the passed CSS to `altboilder.hookedCss`. It retruns the index of the newly added item.
+
 ### Definitions
 
 #### `HTMLString`
