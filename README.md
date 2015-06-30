@@ -65,8 +65,3 @@ A string containing a valid spacebars template
 A function that return an HTML string.
 
 ## TODO
-
-* Add tests
-* Custom CSS-files
-* Custom JS-files
-* Request loader.js via AJAX
