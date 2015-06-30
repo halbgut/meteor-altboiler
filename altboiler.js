@@ -75,14 +75,17 @@ altboiler.onLoadHooks = [
   }
 ]
 
-/* altboiler.getTemplate(templateName)
+/* altboiler.getTemplate(templateName, assets)
  * `templateName` - The filename of a template
+ * `assets` - Meteors `Assets` object
  * returns the rendered template if its found, if not it returns `templateName`
  * Renders a template and returns HTML
  * You can bind a context to it to use it as a context for the template
+ * The `assets` argument is required, because otherwise I can't access the apps assets
  */
-altboiler.getTemplate = function getTemplate (templateName) {
-  var rawTemplate = Assets.getText(templateName)
+altboiler.getTemplate = function getTemplate (templateName, assets) {
+  assets = assets || Assets
+  var rawTemplate = assets.getText(templateName)
   if(!rawTemplate) return templateName
   SSR.compileTemplate(templateName, rawTemplate)
   return SSR.render(templateName, this)
