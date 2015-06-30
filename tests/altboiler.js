@@ -52,3 +52,17 @@ Tinytest.add('altboiler.getTemplate', function (test) {
     'It should treat the first arg as the template if it\'s not a filename'
   )
 })
+
+Tinytest.add('altboiler.Boilerplate', function (test) {
+  var testInst = Object.create(altboiler)
+  function cleanLB (str) {
+    while(str.indexOf('\n') > -1) str = str.replace('\n', '')
+    return str
+  }
+  test.isTrue(testInst.Boilerplate().indexOf('<body>') > -1, 'Its return value should contain a body element')
+  test.isFalse(testInst.Boilerplate().indexOf('<DOCTYPE') > -1, 'Its return value should\'nt contain a doctype')
+  test.isTrue(testInst.Boilerplate().indexOf('<head>') > -1, 'Its return value should contain a head element')
+  testInst.config.action = '<script>console.log("damn trolls")</script>'
+  test.matches(cleanLB(testInst.Boilerplate()), /<body>.*"damn\strolls"/gm, 'The action should be rendered inside the body')
+  test.isTrue(testInst.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
+})
