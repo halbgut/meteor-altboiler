@@ -44,6 +44,12 @@ The passed function is pushed to `config.onLoad`. That function is passed to the
 
 The CSS added via this function will be rendered inside the loading template. It pushes the passed CSS to `altboilder.hookedCss`. It retruns the index of the newly added item.
 
+### `altboiler.js(js)`
+
+**js** - `String` - A string containing JS
+
+The JS added via this function will be rendered inside the loading template. It pushes the passed JS to `altboilder.hookedJs`. It retruns the index of the newly added item.
+
 ### Definitions
 
 #### `HTMLString`
