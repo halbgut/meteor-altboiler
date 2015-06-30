@@ -55,9 +55,16 @@ Tinytest.add('altboiler.getTemplate', function (test) {
 
 Tinytest.add('altboiler.css', function (test) {
   var testInst = Object.create(altboiler)
-  test.equal(typeof testInst.css, 'function', 'altboiler should have a property `css` which function')
+  test.equal(typeof testInst.css, 'function', 'altboiler should have a property `css` which is a function')
   test.equal(typeof testInst.css('div {display: block;}'), 'number', 'It should return the index of the newly inserted css')
   test.equal(testInst.hookedCss[testInst.css('div {display: block;}')], 'div {display: block;}', 'It should push the css to hookedCss')
+})
+
+Tinytest.add('altboiler.js', function (test) {
+  var testInst = Object.create(altboiler)
+  test.equal(typeof testInst.js, 'function', 'altboiler should have a property `js` which is a function')
+  test.equal(typeof testInst.js('console.log("moaarr drama!")'), 'number', 'It should return the index of the newly inserted js')
+  test.equal(testInst.hookedJs[testInst.js('console.log("moaarr drama!")')], 'div {display: block;}', 'It should push the js to hookedJs')
 })
 
 Tinytest.add('altboiler.Boilerplate', function (test) {
@@ -74,4 +81,5 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
   test.isTrue(testInst.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
   testInst.css('div {display: block;}')
   test.matches(cleanLB(testInst.Boilerplate()), /<style\stype="text\/css">.*div\s{display:\sblock;}/gm, 'The hookedCss should be rendered')
+  test.matches(cleanLB(testInst.Boilerplate()), /<script.*console\.log\("moaarr\sdrama!"\)/gm, 'The hookedJs should be rendered')
 })
