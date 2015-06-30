@@ -53,6 +53,13 @@ Tinytest.add('altboiler.getTemplate', function (test) {
   )
 })
 
+Tinytest.add('altboiler.css', function (test) {
+  var testInst = Object.create(altboiler)
+  test.equal(typeof testInst.css, 'function', 'altboiler should have a property `css` which function')
+  test.equal(typeof testInst.css('div {display: block;}'), 'number', 'It should return the index of the newly inserted css')
+  test.equal(testInst.hookedCss[testInst.css('div {display: block;}')], 'div {display: block;}', 'It should push the css to hookedCss')
+})
+
 Tinytest.add('altboiler.Boilerplate', function (test) {
   var testInst = Object.create(altboiler)
   function cleanLB (str) {
@@ -65,4 +72,6 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
   testInst.config.action = '<script>console.log("damn trolls")</script>'
   test.matches(cleanLB(testInst.Boilerplate()), /<body>.*"damn\strolls"/gm, 'The action should be rendered inside the body')
   test.isTrue(testInst.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
+  testInst.css('div {display: block;}')
+  test.matches(cleanLB(testInst.Boilerplate()), /<styles>.*div\s{display:\sblock;}/gm, 'The hookedCss should be rendered')
 })
