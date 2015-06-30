@@ -27,3 +27,28 @@ Tinytest.add('altboiler.onLoad', function (test) {
     test.equal(testInst.onLoadHooks[testInst.onLoad(addedHook)](), addedHook(),'altboiler.onLoad should return the index of the newly added hook')
   })()
 })
+
+Tinytest.add('altboiler.getTemplate', function (test) {
+  var testInst = Object.create(altboiler)
+  var testTemplate = 'tests/assets/testTemplate.html'
+  test.throws(testInst.getTemplate.bind(null, 'test.html', Assets)) // It should fail when the passed Asset doesn\'t exsist
+  test.isTrue(!!testInst.getTemplate.call({}, testTemplate, Assets), 'It should render registered assets')
+  test.equal(
+    testInst.getTemplate.call(
+      {test: [1, 2]},
+      testTemplate,
+      Assets
+    ),
+    '<div>12</div>',
+    'It should render assets as spacebars templates'
+  )
+  test.equal(
+    testInst.getTemplate.call(
+      {test: [1, 2]},
+      '<div>{{ #each test }}{{ this }}{{ /each }}</div>',
+      Assets
+    ),
+    '<div>12</div>',
+    'It should treat the first arg as the template if it\'s not a filename'
+  )
+})
