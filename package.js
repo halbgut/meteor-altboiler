@@ -40,6 +40,13 @@ Package.onTest(function(api) {
   api.use('kriegslustig:altboiler')
   api.addFiles(
     [
+      'tests/assets/testTemplate.html',
+    ],
+    'server',
+    {isAsset: true}
+  )
+  api.addFiles(
+    [
       'tests/altboiler.js'
     ],
     'server'
