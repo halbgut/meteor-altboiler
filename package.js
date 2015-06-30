@@ -1,12 +1,8 @@
 Package.describe({
   name: 'kriegslustig:altboiler',
-  version: '0.0.1',
-  // Brief, one-line summary of the package.
+  version: '0.1.0',
   summary: ' A non render-blocking alternative to the Meteor-core boilerplate-generator package',
-  // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/Kriegslustig/meteor-altboiler',
-  // By default, Meteor will default to using README.md for documentation.
-  // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
 });
 
@@ -32,7 +28,6 @@ Package.onUse(function(api) {
     ],
     'server'
   )
-  api.export('altboiler', 'server')
   api.export(['altboiler', '_Altboiler', '_altboilerScope'], 'server')
 });
 
@@ -40,16 +35,12 @@ Package.onTest(function(api) {
   api.use('tinytest')
   api.use('kriegslustig:altboiler')
   api.addFiles(
-    [
-      'tests/assets/testTemplate.html',
-    ],
+    ['tests/assets/testTemplate.html',],
     'server',
     {isAsset: true}
   )
   api.addFiles(
-    [
-      'tests/altboiler.js'
-    ],
+    ['tests/altboiler.js'],
     'server'
   );
   api.export('Altboiler')
