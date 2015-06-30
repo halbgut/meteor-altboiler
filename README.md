@@ -1,17 +1,30 @@
-# meteor-altboiler [WORK IN PROGRESS]
+# meteor-altboiler - 0.1.0 [WORK IN PROGRESS]
 
-A non render-blocking alternative to the Meteor-core boilerplate-generator package
+A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
 Loading meteor can take over a minute to load on slow networks. It is huge. This makes for an awful UX. With this package you can server static HTML first and then load meteor in the background. You could for an example serve a loading screen first. Or you could also render the whole site without the parts that need a connection to the server for.
 
 Using the knowledge gained form writing [Meteor-without-blocking-the-rendering-process](https://github.com/Kriegslustig/Meteor-without-blocking-the-rendering-process), I'm now writing this package.
 
+## Issues
+
+The package goes pretty deep into the meteor core. So it's likely that there are edge cases that I've missed.
+
+So don't hesitate to create an Issue and if you're not sure if it's a bug or an issue with your set up, just PM me.
+
 ## Usage
 
 ```
+// Render a file saved in private/myLoadScreen.html as the loading screen
 altboiler({
-  action: altboiler.getTemplate.bind({something: 2}, 'templateName')
+  action: altboiler.getTemplate.bind({something: 2}, 'myLoadScreen.html', Assets)
 })
+
+// Render a file saved in private/myLoadScript.js as JS inside the loading screen
+altboiler.js(Assets.getText('myLoadScript.js'))
+
+// Render a file saved in private/myLoadStyles.css as CSS inside the loading screen
+altboiler.js(Assets.getText('myLoadScript.js'))
 ```
 
 ## API
@@ -28,7 +41,7 @@ This function is a helper to configure altboiler. You shouldn't access `altboild
 ### `altboiler.getTemplate(templateName, assets)`
 
 **templateName** - `TemplateName` | `Template`
-**Assets** - `Obejct` - The current contexts `Assets` obejct
+**Assets** - `Obejct` - The current contexts `Assets` object
 
 The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
 
@@ -42,13 +55,13 @@ The passed function is pushed to `config.onLoad`. That function is passed to the
 
 **css** - `String` - A string containing CSS
 
-The CSS added via this function will be rendered inside the loading template. It pushes the passed CSS to `altboilder.hookedCss`. It retruns the index of the newly added item.
+The CSS added via this function will be rendered inside the loading template. It pushes the passed CSS to `altboilder.hookedCss`. It returns the index of the newly added item.
 
 ### `altboiler.js(js)`
 
 **js** - `String` - A string containing JS
 
-The JS added via this function will be rendered inside the loading template. It pushes the passed JS to `altboilder.hookedJs`. It retruns the index of the newly added item.
+The JS added via this function will be rendered inside the loading template. It pushes the passed JS to `altboilder.hookedJs`. It returns the index of the newly added item.
 
 ### Definitions
 
@@ -65,3 +78,4 @@ A string containing a valid spacebars template
 A function that return an HTML string.
 
 ## TODO
+...
