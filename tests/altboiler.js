@@ -91,3 +91,10 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
   altboiler.js('console.log("moaarr drama!")')
   test.matches(cleanLB(altboiler.Boilerplate()), /<script.*console\.log\("moaarr\sdrama!"\)/gm, 'The hookedJs should be rendered')
 })
+
+Tinytest.add('altboiler.renderAction', function (test) {
+  var altboiler = newAltboiler()
+  test.equal(altboiler.renderAction('someString'), 'someString', 'It should return a string if it\'s not a template')
+  test.equal(altboiler.renderAction('tests/assets/testTemplate.html', Assets), '<div></div>', 'It should be able to handle templates')
+  test.equal(altboiler.renderAction(function () {return '21'}), '21', 'It should be able to handle functions returning strings')
+})

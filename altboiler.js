@@ -141,10 +141,10 @@ _Altboiler = function Altboiler (
    * `action` - A template's filename, function or a simple string of HTML
    * returns the rendered action.
    */
-  altboiler.renderAction = function renderAction (action) {
+  altboiler.renderAction = function renderAction (action, assets) {
     if(typeof action === 'function') return action()
     if(typeof action === 'string') {
-      if(action.substr(-5) === '.html') return this.getTemplate(action)
+      if(action.substr(-5) === '.html') return this.getTemplate(action, assets)
       return action
     }
   }
