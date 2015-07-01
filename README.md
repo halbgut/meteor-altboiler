@@ -41,6 +41,17 @@ altboiler.js(Assets.getText('myLoadScript.js'))
 
 ## API
 
+The package installs two `connect`-handles. One on `WebApp.rawConnectHandlers` and one on `WebApp.connectHandlers`. The latter is used to serve the loader (load-screen). It simply doesn't call the `next` callback to prevent the meteor core from loading. The former, raw handler is for the app-script. It compiles all files inside the manifest and serves it as one file.
+
+When a client hits the server it responds with the rendered altboiler `Boilerplate`. Its basically rendering [`assets/main.html`](https://github.com/Kriegslustig/meteor-altboiler/blob/master/assets/main.html). Here's an overview of what happens inside;
+
+* First your styles (`altboiler.hookedCss`) gets loaded
+* The loader-script ([`assets/loader`](https://github.com/Kriegslustig/meteor-altboiler/blob/master/assets/loader.js)) gets loaded
+* All the `onLoadHooks` get installed
+* The return value of `altboiler.config.action` gets loaded
+* The app-script is loaded over the raw connect-handler
+* `onLoad` hook triggers
+
 ### `altboiler(options)`
 
 **options** - `Object`:
@@ -92,3 +103,4 @@ A function that return an HTML string.
 ## TODO
 
 * Don't show the loading screen when the main script's cached
+* Minimize the load script
