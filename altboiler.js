@@ -20,6 +20,7 @@ _Altboiler = function Altboiler (
 ) {
 
   var altboiler = {}
+
   /* altboiler.configuration
    * The default configuration
    */
@@ -54,7 +55,7 @@ _Altboiler = function Altboiler (
    * You can bind a context to it to use it as a context for the template
    * The `assets` argument is required, because otherwise I can't access the apps assets
    */
-   altboiler.getTemplate = function getTemplate (templateName, assets) {
+  altboiler.getTemplate = function getTemplate (templateName, assets) {
     assets = assets || Assets
     var rawTemplate = templateName.substr(-5) === '.html' ? assets.getText(templateName) : templateName
     if(!rawTemplate) return templateName

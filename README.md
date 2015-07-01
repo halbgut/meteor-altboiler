@@ -83,4 +83,4 @@ This is what will be served to all routes before meteor. The best way to use thi
 An array of functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue.
 
 ## TODO
-* Fix indentation issues after /**/ comments
+...
