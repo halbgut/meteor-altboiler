@@ -14,6 +14,8 @@ Tinytest.add('loader.onLoad', function (test) {
   test.equal(typeof altboiler.loader.onLoad(function () {}), 'number', 'It should return a number')
   test.equal(altboiler.loader.onLoadQueue[altboiler.loader.onLoad(function(){return 'hi'})](), 'hi', 'It should push the function to loader.onLoadQueue')
   test.equal(typeof altboiler.loader.onLoadQueue[altboiler.loader.onLoad('loader')].onLoad, 'function', 'It should be able to take function names as arguments and then push the function with that name inside its context')
+  altboiler.loader.onLoad([function () {}, function () { return true }])
+  test.isTrue(altboiler.loader.onLoadQueue[altboiler.loader.onLoadQueue.length - 1](), 'It should be able to take an array as an argument')
 })
 
 Tinytest.add('loader.runOnLoadQueue', function (test) {
