@@ -1,20 +1,32 @@
-# meteor-altboiler - 0.1.0 [WORK IN PROGRESS]
+# meteor-altboiler - 0.1.0
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
 Loading meteor can take over a minute to load on slow networks. It is huge. This makes for an awful UX. With this package you can server static HTML first and then load meteor in the background. You could for an example serve a loading screen first. Or you could also render the whole site without the parts that need a connection to the server for.
 
-Using the knowledge gained form writing [Meteor-without-blocking-the-rendering-process](https://github.com/Kriegslustig/Meteor-without-blocking-the-rendering-process), I'm now writing this package.
-
 ## Issues
 
-The package goes pretty deep into the meteor core. So it's likely that there are edge cases that I've missed.
+Don't hesitate to create an Issue just check the [TODO]() section first. If you're not sure if it's a bug or an issue with your set up, just PM me. :)
 
-So don't hesitate to create an Issue and if you're not sure if it's a bug or an issue with your set up, just PM me.
+## Table of Contents
+
+- [Usage](https://github.com/Kriegslustig/meteor-altboiler#usage)
+- [API](https://github.com/Kriegslustig/meteor-altboiler#api)
+  - [`altboiler`](https://github.com/Kriegslustig/meteor-altboiler#altboiler)
+  - [`altboiler.getTemplate`](https://github.com/Kriegslustig/meteor-altboiler#altboiler_getTemplate)
+  - [`altboiler.onLoad`](https://github.com/Kriegslustig/meteor-altboiler#altboiler_onload)
+  - [`altboiler.css`](https://github.com/Kriegslustig/meteor-altboiler#altboiler_css)
+  - [`altboiler.js`](https://github.com/Kriegslustig/meteor-altboiler#altboiler_js)
+- [Definitions](https://github.com/Kriegslustig/meteor-altboiler#definitions)
+  - [`HTMLString`](https://github.com/Kriegslustig/meteor-altboiler#htmlstring)
+  - [`TemplateName`](https://github.com/Kriegslustig/meteor-altboiler#templatename)
+  - [`Template`](https://github.com/Kriegslustig/meteor-altboiler#template)
+  - [`HTMLReturningFunction`](https://github.com/Kriegslustig/meteor-altboiler#htmlreturningfunction)
+- [TODO](https://github.com/Kriegslustig/meteor-altboiler#todo)
 
 ## Usage
 
-```
+```js
 // Render a file saved in private/myLoadScreen.html as the loading screen
 altboiler({
   action: altboiler.getTemplate.bind({something: 2}, 'myLoadScreen.html', Assets)
@@ -32,11 +44,11 @@ altboiler.js(Assets.getText('myLoadScript.js'))
 ### `altboiler(options)`
 
 **options** - `Object`:
-An object containing the configuration for `altboilder`.
+An object containing the configuration for `altboiler`.
   * **action** - `HTMLString` | `TemplateName` | `HTMLReturningFunction`, *true*: This is what will be served to all routes before meteor.
   * **onLoad** - `FunctionName`: The name of a function defined in side the `action`. The function is asynchronous. So it's passed a callback that you have to call inside it.
 
-This function is a helper to configure altboiler. You shouldn't access `altboilder.config` directly.
+This function is a helper to configure altboiler. You shouldn't access `altboiler.config` directly.
 
 ### `altboiler.getTemplate(templateName, assets)`
 
@@ -55,15 +67,15 @@ The passed function is pushed to `config.onLoad`. That function is passed to the
 
 **css** - `String` - A string containing CSS
 
-The CSS added via this function will be rendered inside the loading template. It pushes the passed CSS to `altboilder.hookedCss`. It returns the index of the newly added item.
+The CSS added via this function will be rendered inside the loading template. It pushes the passed CSS to `altboiler.hookedCss`. It returns the index of the newly added item.
 
 ### `altboiler.js(js)`
 
 **js** - `String` - A string containing JS
 
-The JS added via this function will be rendered inside the loading template. It pushes the passed JS to `altboilder.hookedJs`. It returns the index of the newly added item.
+The JS added via this function will be rendered inside the loading template. It pushes the passed JS to `altboiler.hookedJs`. It returns the index of the newly added item.
 
-### Definitions
+## Definitions
 
 #### `HTMLString`
 A string of HTML.
@@ -78,4 +90,5 @@ A string containing a valid spacebars template
 A function that return an HTML string.
 
 ## TODO
-...
+
+* Don't show the loading screen when the main script's cached
