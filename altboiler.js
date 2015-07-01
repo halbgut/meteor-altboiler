@@ -11,6 +11,8 @@ var boilerUtils = _altboilerScope.boilerUtils
  * `boilerUtils` - Utilities to help generating the boilerplate
  * returns an instance of `altboiler`
  * This function exsists just to make the thing easier to test.
+ * All functions inside this object are exported.
+ * It's to make testing easier.
  */
 _Altboiler = function Altboiler (
   maniUtils,
@@ -126,7 +128,7 @@ _Altboiler = function Altboiler (
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
         APP_SCRIPT,
-        (boilerUtils.renderAction(this.config.action)),
+        this.renderAction(this.config.action),
         this.onLoadHooks,
         this.hookedCss,
         this.hookedJs
@@ -134,6 +136,18 @@ _Altboiler = function Altboiler (
       'assets/main.html'
     )
   }
+
+  /* altboiler.renderAction(action)
+   * `action` - A template's filename, function or a simple string of HTML
+   * returns the rendered action.
+   */
+  altboiler.renderAction = function renderAction (action) {
+    if(typeof action === 'function') return action()
+    if(typeof action === 'string') {
+      if(action.substr(-5) === '.html') return this.getTemplate(action)
+      return action
+    }
+  },
 
   return altboiler
 }
