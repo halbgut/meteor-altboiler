@@ -147,7 +147,7 @@ _Altboiler = function Altboiler (
       if(action.substr(-5) === '.html') return this.getTemplate(action)
       return action
     }
-  },
+  }
 
   return altboiler
 }
