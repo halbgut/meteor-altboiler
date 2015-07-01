@@ -48,10 +48,11 @@ The package installs two `connect`-handles. One on `WebApp.rawConnectHandlers` a
 
 When a client hits the server it responds with the rendered altboiler `Boilerplate`. Its basically rendering [`assets/main.html`](https://github.com/Kriegslustig/meteor-altboiler/blob/master/assets/main.html). Here's an overview of what happens inside;
 
-* First your styles (`altboiler.hookedCss`) gets loaded
+* First your styles (`altboiler.configuration.css`) gets loaded
 * The loader-script ([`assets/loader`](https://github.com/Kriegslustig/meteor-altboiler/blob/master/assets/loader.js)) gets loaded
-* All the `onLoadHooks` get installed
-* The return value of `altboiler.config.action` gets loaded
+* Your script loads (`altboiler.configuration.js`)
+* All the `altboiler.configuration.onLoad` get installed
+* The return value of `altboiler.configuration.action` gets loaded
 * The app-script is loaded over the raw connect-handler
 * `onLoad` hook triggers
 
@@ -66,7 +67,7 @@ The templates get rendered using `meteorhacks:ssr`. So you can also register hel
 
 **config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the new one will be used.
 
-This configures altboiler. `altboiler` itself is an alias for this function
+This configures altboiler. The configuration is saved in `altboiler.configuration`.
 
 ## Configuration
 
