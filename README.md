@@ -70,16 +70,16 @@ This configures altboiler. `altboiler` itself is an alias for this function
 
 ## Configuration
 
-### `css`
+### `css` - `Array` || `String`
 An array of strings of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
 
-### `js`
+### `js` - `Array` || `String`
 Same as the CSS. The configured JS strings will be executed right after `assets/loader.js`.
 
-### `action`
+### `action` - `String` || `Function`
 This is what will be served to all routes before meteor. The best way to use this, is to create a `.html` file as an asset and then call `altboiler.getTemplate.call`.
 
-### `onLoad`
+### `onLoad` - `Array` || `Function`
 An array of functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue.
 
 ## TODO
