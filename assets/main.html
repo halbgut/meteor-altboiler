@@ -10,17 +10,18 @@
     <style type="text/css">
       {{{ styles }}}
     </style>
-    {{{ content }}}
     <script type="text/javascript">
       {{{ script }}}
       altboiler.loader.onLoad(altboiler.loader.removerById('altboiler_boilerPlateLoader'))
+      altboiler.loader.onLoad(altboiler.loader.removerById('altboiler_onLoadHooks'))
       altboiler.loader.onLoad({{ onLoadHooks }})
       altboiler.loader.onLoad(altboiler.loader.appender({{{ head }}}, {{{ body }}}))
       altboiler = altboiler
     </script>
+    {{{ content }}}
   </div>
   <script id="altboiler_appScripts" type="text/javascript" src="{{ appScript }}"></script>
-  <script type="text/javascript">
+  <script id="altboiler_onLoadHooks" type="text/javascript">
     altboiler.loader.runOnLoadQueue()
   </script>
 </body>
