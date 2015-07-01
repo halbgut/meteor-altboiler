@@ -10,6 +10,7 @@ Don't hesitate to create an Issue just check the [TODO]() section first. If you'
 
 ## Table of Contents
 
+- [Installing](https://github.com/Kriegslustig/meteor-altboiler#installing)
 - [Usage](https://github.com/Kriegslustig/meteor-altboiler#usage)
 - [API](https://github.com/Kriegslustig/meteor-altboiler#api)
   - [`altboiler`](https://github.com/Kriegslustig/meteor-altboiler#altboileroptions)
@@ -18,11 +19,13 @@ Don't hesitate to create an Issue just check the [TODO]() section first. If you'
   - [`altboiler.css`](https://github.com/Kriegslustig/meteor-altboiler#altboilercsscss)
   - [`altboiler.js`](https://github.com/Kriegslustig/meteor-altboiler#altboilerjsjs)
 - [Definitions](https://github.com/Kriegslustig/meteor-altboiler#definitions)
-  - [`HTMLString`](https://github.com/Kriegslustig/meteor-altboiler#htmlstring)
-  - [`TemplateName`](https://github.com/Kriegslustig/meteor-altboiler#templatename)
-  - [`Template`](https://github.com/Kriegslustig/meteor-altboiler#template)
-  - [`HTMLReturningFunction`](https://github.com/Kriegslustig/meteor-altboiler#htmlreturningfunction)
 - [TODO](https://github.com/Kriegslustig/meteor-altboiler#todo)
+
+## Installing
+
+```bash
+meteor install kriegslustig:altboiler
+```
 
 ## Usage
 
