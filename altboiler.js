@@ -20,53 +20,37 @@ _Altboiler = function Altboiler (
 ) {
 
   var altboiler = {}
-
-  /* altboiler(options)
-   * `options` - an object containing options
-   * returns the new `altboiler.config`
-   * Adds the options to the exsisting `altboiler.config`.
-   */
-   altboiler.configure = function config (options) {
-    return this.config = _.extend(this.config, options)
-  }
-
-  /* altboiler.config
+  /* altboiler.defaults
    * The default configuration
    * Just sets `assets/default.html` as it's action
    */
-   altboiler.config = {
+   altboiler.defaults = {
     /* action
      * The action called inside the load template
      */
-    action: 'assets/default.html'
+    action: 'assets/default.html',
+    css: [],
+    js: [],
+    onLoad: [
+      function fadeOut (next) {
+        document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
+        setTimeout(next, 200)
+      }
+    ]
   }
 
-  /* altboiler.onLoad(func)
-   * `func` - a function
-   * returns the index of the newly added hook
-   * The passed function is pushed to `config.onLoad`
-   * That function is passed to the client using `.toString`
-   * And then executed in a different context.
-   * This means, that the function can't have any dependencies
-   * (except for ones defined inside the script you pass to the client)
+  /* altboiler.beforeRender(func)
+   * `func` - A function which is called with the configuration as an argument. It's return value is used as the new configuration.
+   * returns the index of the function inside beforeRenderHooks
    */
-   altboiler.onLoad = function onLoad (func) {
-    return this.onLoadHooks.push(func) - 1
+  altboiler.beforeRender = function beforeRender (func) {
+    return this.beforeRenderHooks.push(func) - 1
   }
 
-  /* altboiler.onLoadHooks
-   * An array contains all onLoad hooks.
+  /* altboiler.beforeRenderHooks
+   * An array containing all beforeRenderHooks
    */
-   altboiler.onLoadHooks = [
-    /* fadeOut(next)
-     * `next` - The callback
-     * A default onLoad hook that let's the `altboiler_boilerPlateLoader` disapear
-     */
-    function fadeOut (next) {
-      document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
-      setTimeout(next, 200)
-    }
-  ]
+  altboiler.beforeRenderHooks = []
 
   /* altboiler.getTemplate(templateName, assets)
    * `templateName` - The filename of a template
@@ -84,54 +68,21 @@ _Altboiler = function Altboiler (
     return SSR.render(templateName, this)
   }
 
-  /* altboiler.css(css)
-   * `css` - A string containing CSS
-   * returns the index of the CSS inside `hookedCss`
-   * Pushes strings to `hookedCss`
-   */
-   altboiler.css = function css (css) {
-    return this.hookedCss.push(css) - 1
-  }
-
-  /* altboiler.hookedCss
-   * An array containing CSS
-   * The CSS will be rendered into the loading template
-   */
-   altboiler.hookedCss = [
-    /* The default styles, they may be removed by accessing this array directly */
-    Assets.getText('assets/styles.css')
-  ]
-
-  /* altboiler.js(js)
-   * `js` - A string containing JS
-   * returns the index of the JS inside `hookedJs`
-   * Pushes strings to `hookedJs`
-   */
-   altboiler.js = function js (js) {
-    return this.hookedJs.push(js) - 1
-  }
-
-  /* altboiler.hookedJs
-   * An array containing js
-   * The JS will be rendered into the loading template
-   * (after loader.js)
-   */
-   altboiler.hookedJs = []
-
   /* altboiler.Boilerplate()
    * returns the rendered boilerplate
    * It renderes the template `assets/main.html`
    */
-  // Returns the generated boilerplate
   altboiler.Boilerplate = function Boilerplate () {
+    var config = boilerUtils.runBeforeRenderHooks(
+      this.beforeRenderHooks,
+      this.defaults
+    )
     return this.getTemplate.call(
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
         APP_SCRIPT,
-        this.renderAction(this.config.action),
-        this.onLoadHooks,
-        this.hookedCss,
-        this.hookedJs
+        this.renderAction(config.action),
+        config
       ),
       'assets/main.html'
     )
