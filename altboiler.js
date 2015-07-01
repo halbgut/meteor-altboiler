@@ -20,11 +20,10 @@ _Altboiler = function Altboiler (
 ) {
 
   var altboiler = {}
-  /* altboiler.defaults
+  /* altboiler.configuration
    * The default configuration
-   * Just sets `assets/default.html` as it's action
    */
-   altboiler.defaults = {
+  altboiler.configuration = {
     /* action
      * The action called inside the load template
      */
@@ -39,18 +38,13 @@ _Altboiler = function Altboiler (
     ]
   }
 
-  /* altboiler.beforeRender(func)
-   * `func` - A function which is called with the configuration as an argument. It's return value is used as the new configuration.
-   * returns the index of the function inside beforeRenderHooks
+  /* altboiler.config(config)
+   * `config` - An object which is merged with the current configuration
+   * returns the new configuration
    */
-  altboiler.beforeRender = function beforeRender (func) {
-    return this.beforeRenderHooks.push(func) - 1
+  altboiler.config = function config (config) {
+    return this.configuration = _.extend(this.configuration, config)
   }
-
-  /* altboiler.beforeRenderHooks
-   * An array containing all beforeRenderHooks
-   */
-  altboiler.beforeRenderHooks = []
 
   /* altboiler.getTemplate(templateName, assets)
    * `templateName` - The filename of a template
@@ -73,16 +67,12 @@ _Altboiler = function Altboiler (
    * It renderes the template `assets/main.html`
    */
   altboiler.Boilerplate = function Boilerplate () {
-    var config = boilerUtils.runBeforeRenderHooks(
-      this.beforeRenderHooks,
-      this.defaults
-    )
     return this.getTemplate.call(
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
         APP_SCRIPT,
-        this.renderAction(config.action),
-        config
+        this.renderAction(this.configuration.action),
+        this.configuration
       ),
       'assets/main.html'
     )

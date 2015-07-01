@@ -32,25 +32,23 @@ Tinytest.add('altboiler.getTemplate', function (test) {
   )
 })
 
-Tinytest.add('altboiler.beforeRender', function (test) {
+Tinytest.add('altboiler.config', function (test) {
   var altboiler = newAltboiler()
-  test.equal(typeof altboiler.beforeRender, 'function', 'It should be a function')
-  test.isFalse(!!newAltboiler().beforeRender({}), 'It should be able to handle objects')
-  altboiler.beforeRender(function (config) {
-    config.css.push('div {}')
-    config.js.push('console.log("moaarr drama!")')
-    config.onLoad.push('console.log("loadeed!")')
-    config.action = function () { return 'someAction...' }
-    return config
+  test.equal(typeof altboiler.config, 'function', 'It should be a function')
+  test.isTrue(!!newAltboiler().config({}), 'It should be able to handle objects')
+  altboiler.config({
+    css: ['div {}'],
+    js: ['console.log("moaarr drama!")'],
+    onLoad: ['console.log("loadeed!")'],
+    action: function () { return 'someAction...' },
   })
-  test.matches(cleanLB(altboiler.Boilerplate()), /<style\stype="text\/css">.*div\s{}/gm, 'The hookedCss should be rendered')
-  test.matches(cleanLB(altboiler.Boilerplate()), /<script.*console\.log\("moaarr\sdrama!"\)/gm, 'The hookedJs should be rendered')
-  test.matches(cleanLB(altboiler.Boilerplate()), /<script.*console\.log\("loadeed!"\)/gm, 'The hookedJs should be rendered')
+  test.matches(cleanLB(altboiler.Boilerplate()), /<style\stype="text\/css">.*div\s{}/gm, 'The hooked css should be rendered')
+  test.matches(cleanLB(altboiler.Boilerplate()), /<script.*console\.log\("moaarr\sdrama!"\)/gm, 'The hooked js should be rendered')
+  test.matches(cleanLB(altboiler.Boilerplate()), /<script.*console\.log\("loadeed!"\)/gm, 'The hooked js should be rendered')
   ; (function () {
     var altboiler = newAltboiler()
-    altboiler.beforeRender(function (config) {
-      config.action = '<script>console.log("damn trolls")</script>'
-      return config
+    altboiler.config({
+      action: '<script>console.log("damn trolls")</script>'
     })
     test.matches(cleanLB(altboiler.Boilerplate()), /<body>.*"damn\strolls"/gm, 'The action should be rendered inside the body')
   })()
