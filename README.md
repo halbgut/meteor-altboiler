@@ -105,5 +105,4 @@ A function that return an HTML string.
 
 ## TODO
 
-* Don't show the loading screen when the main script's cached
-* Minimize the load script
+* Simplify the API by creating just a single function for all hooks
