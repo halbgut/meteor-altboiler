@@ -8,7 +8,7 @@ loader.onLoadQueue = []
  * pushes functions to the loader.onLoadQueue
  */
 loader.onLoad = function onLoad (func) {
-  if(typeof func == 'object') return func.forEach(this.onLoad)
+  if(typeof func == 'object') return func.forEach(this.onLoad.bind(this))
   if(typeof func == 'string') eval('func = ' + func)
   if(func) return this.onLoadQueue.push(func) - 1
 }
@@ -45,7 +45,7 @@ loader.appender = function appender (head, body) {
  * It's just to keep assets/main.html clean
  */
 loader.removerById = function removerById (elementId) {
-  return function (next) {
+  return function removeById (next) {
     var removeThis = document.getElementById(elementId)
     removeThis.parentNode.removeChild(removeThis)
     next()
