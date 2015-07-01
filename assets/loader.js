@@ -1,18 +1,17 @@
-// When this is used client side, altboiler wont be defined
 var loader = {}
 
 loader.onLoadQueue = []
 
 loader.onLoad = function onLoad (func) {
-  if(typeof func == 'object') return func.forEach(loader.onLoad)
-  if(typeof func == 'string') func = eval('return ' + func)
-  if(func) loader.onLoadQueue.push(func)
+  if(typeof func == 'object') return func.forEach(this.onLoad)
+  if(typeof func == 'string') eval('func = ' + func)
+  if(func) return this.onLoadQueue.push(func) - 1
 }
 
 loader.runOnLoadQueue = function runOnLoadQueue (queue) {
-  queue = queue || loader.onLoadQueue
+  queue = queue || this.onLoadQueue
   if(!queue.length) return
-  queue.pop()(loader.runOnLoadQueue.bind(null, queue))
+  queue.pop()(this.runOnLoadQueue.bind(this, queue))
 }
 
 loader.appender = function appender (head, body) {
@@ -31,6 +30,14 @@ loader.removerById = function removerById (elementId) {
   }
 }
 
+/*
+ * To make it run both client- and server-side,
+ * I need to do this.
+ * It only runs server side, when it's beeing tested
+ * It's actually attached to an instance of _Altboiler
+ * This looks pretty ugly.
+ * But it's the *best* in this case
+ */
 if (typeof window !== 'undefined') {
   window.altboiler = {}
 } else {
