@@ -1,4 +1,4 @@
-# meteor-altboiler - 0.1.0
+# meteor-altboiler - 0.2.0 [NOT YET RELEASED]
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
@@ -13,12 +13,9 @@ Don't hesitate to create an Issue just check the [TODO]() section first. If you'
 - [Installing](https://github.com/Kriegslustig/meteor-altboiler#installing)
 - [Usage](https://github.com/Kriegslustig/meteor-altboiler#usage)
 - [API](https://github.com/Kriegslustig/meteor-altboiler#api)
-  - [`altboiler`](https://github.com/Kriegslustig/meteor-altboiler#altboileroptions)
   - [`altboiler.getTemplate`](https://github.com/Kriegslustig/meteor-altboiler#altboilergettemplatetemplatename-assets)
-  - [`altboiler.onLoad`](https://github.com/Kriegslustig/meteor-altboiler#altboileronloadfunctohookup)
-  - [`altboiler.css`](https://github.com/Kriegslustig/meteor-altboiler#altboilercsscss)
-  - [`altboiler.js`](https://github.com/Kriegslustig/meteor-altboiler#altboilerjsjs)
-- [Definitions](https://github.com/Kriegslustig/meteor-altboiler#definitions)
+  - [`altboiler.onLoad`](https://github.com/Kriegslustig/meteor-altboiler#altboilerconfigconfig)
+- [Configuration](https://github.com/Kriegslustig/meteor-altboiler#configuration)
 - [TODO](https://github.com/Kriegslustig/meteor-altboiler#todo)
 
 ## Installing
@@ -31,15 +28,18 @@ meteor install kriegslustig:altboiler
 
 ```js
 // Render a file saved in private/myLoadScreen.html as the loading screen
-altboiler({
-  action: altboiler.getTemplate.bind({something: 2}, 'myLoadScreen.html', Assets)
+altboiler.config({
+  action: altboiler.getTemplate.bind({something: 2}, 'myLoadScreen.html', Assets),
+
+  // Render a file saved in private/myLoadScript.js as JS inside the loading screen
+
+  js: Assets.getText('myLoadScript.js'),
+
+  // Render a file saved in private/myLoadStyles.css as CSS inside the loading screen
+  css: Assets.getText('myLoadScript.css')
 })
 
-// Render a file saved in private/myLoadScript.js as JS inside the loading screen
-altboiler.js(Assets.getText('myLoadScript.js'))
 
-// Render a file saved in private/myLoadStyles.css as CSS inside the loading screen
-altboiler.js(Assets.getText('myLoadScript.js'))
 ```
 
 ## API
@@ -55,54 +55,32 @@ When a client hits the server it responds with the rendered altboiler `Boilerpla
 * The app-script is loaded over the raw connect-handler
 * `onLoad` hook triggers
 
-### `altboiler(options)`
+### `altboiler.getTemplate(templateName[, assets])`
 
-**options** - `Object`:
-An object containing the configuration for `altboiler`.
-  * **action** - `HTMLString` | `TemplateName` | `HTMLReturningFunction`, *true*: This is what will be served to all routes before meteor.
-  * **onLoad** - `FunctionName`: The name of a function defined in side the `action`. The function is asynchronous. So it's passed a callback that you have to call inside it.
-
-This function is a helper to configure altboiler. You shouldn't access `altboiler.config` directly.
-
-### `altboiler.getTemplate(templateName, assets)`
-
-**templateName** - `TemplateName` | `Template`
-**Assets** - `Obejct` - The current contexts `Assets` object
+**templateName** - `TemplateName` | `Template`: If you pass the filename of a resource, you have to pass the `Assets`-object
+**Assets** - `Object`: The current contexts `Assets` object
 
 The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
 
-### `altboiler.onLoad(funcToHookUp)`
+### `altboiler.config(config)`
 
-**funcToHookUp** - `FunctionName` | `Function`: The function to be triggered when the scripts are loaded. The function has to take one argument `next` which calls the next function in the `onLoad` queue.
+**config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the new one will be used.
 
-The passed function is pushed to `config.onLoad`. That function is passed to the client using `.toString` and is then executed in a different context. This means, that the function can't have any *dependencies* (except for stuff loaded into the boilerplate).
+This configures altboiler. `altboiler` itself is an alias for this function
 
-### `altboiler.css(css)`
+## Configuration
 
-**css** - `String` - A string containing CSS
+### `css`
+An array of strings of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
 
-The CSS added via this function will be rendered inside the loading template. It pushes the passed CSS to `altboiler.hookedCss`. It returns the index of the newly added item.
+### `js`
+Same as the CSS. The configured JS strings will be executed right after `assets/loader.js`.
 
-### `altboiler.js(js)`
+### `action`
+This is what will be served to all routes before meteor. The best way to use this, is to create a `.html` file as an asset and then call `altboiler.getTemplate.call`.
 
-**js** - `String` - A string containing JS
-
-The JS added via this function will be rendered inside the loading template. It pushes the passed JS to `altboiler.hookedJs`. It returns the index of the newly added item.
-
-## Definitions
-
-#### `HTMLString`
-A string of HTML.
-
-#### `TemplateName`
-A [asset's](http://docs.meteor.com/#/full/assets) name. The file has to have the `.html` extension.
-
-#### `Template`
-A string containing a valid spacebars template
-
-#### `HTMLReturningFunction`
-A function that return an HTML string.
+### `onLoad`
+An array of functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue.
 
 ## TODO
-
-* Simplify the API by creating just a single function for all hooks
+* Fix indentation issues after /**/ comments
