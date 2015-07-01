@@ -32,15 +32,22 @@ Package.onUse(function(api) {
 });
 
 Package.onTest(function(api) {
-  api.use('tinytest')
-  api.use('kriegslustig:altboiler')
+  api.use(['tinytest', 'underscore', 'kriegslustig:altboiler'])
   api.addFiles(
-    ['tests/assets/testTemplate.html',],
+    ['tests/assets/testTemplate.html'],
     'server',
     {isAsset: true}
   )
   api.addFiles(
-    ['tests/altboiler.js'],
+    /* To test that scripts */
+    ['assets/loader.js'],
+    'server'
+  )
+  api.addFiles(
+    [
+      'tests/altboiler.js',
+      'tests/loader.js'
+    ],
     'server'
   );
   api.export('Altboiler')
