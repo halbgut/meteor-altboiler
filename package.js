@@ -8,7 +8,12 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2')
-  api.use(['underscore', 'webapp', 'meteorhacks:ssr@2.1.2'])
+  api.use([
+    'underscore',
+    'webapp',
+    'minifiers',
+    'meteorhacks:ssr@2.1.2',
+  ])
   api.addFiles(
     [
       'assets/main.html',
