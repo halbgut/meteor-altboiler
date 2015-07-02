@@ -1,2 +1,2 @@
-// Register the getTemplate function as a helper
-Template.registerHelper('getTemplate', altboiler.getTemplate)
+/* Register the getTemplate function as a helper */
+Template.registerHelper('getServerTemplate', altboiler.getTemplate)

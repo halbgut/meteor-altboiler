@@ -61,7 +61,7 @@ When a client hits the server it responds with the rendered altboiler `Boilerpla
 **templateName** - `TemplateName` | `Template`: If you pass the filename of a resource, you have to pass the `Assets`-object
 **Assets** - `Object`: The current contexts `Assets` object
 
-The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper.
+The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper, it's called `getServerTemplate`.
 
 ### `altboiler.config(config)`
 
