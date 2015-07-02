@@ -29,7 +29,9 @@ _Altboiler = function Altboiler (
      * The action called inside the load template
      */
     action: 'assets/default.html',
-    css: [],
+    css: [
+      Assets.getText('assets/styles.css')
+    ],
     js: [],
     onLoad: [
       function fadeOut (next) {
