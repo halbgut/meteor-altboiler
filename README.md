@@ -14,7 +14,7 @@ Don't hesitate to create an Issue just check the [TODO](https://github.com/Krieg
 - [Usage](https://github.com/Kriegslustig/meteor-altboiler#usage)
 - [API](https://github.com/Kriegslustig/meteor-altboiler#api)
   - [`altboiler.getTemplate`](https://github.com/Kriegslustig/meteor-altboiler#altboilergettemplatetemplatename-assets)
-  - [`altboiler.onLoad`](https://github.com/Kriegslustig/meteor-altboiler#altboilerconfigconfig)
+  - [`altboiler.config`](https://github.com/Kriegslustig/meteor-altboiler#altboilerconfigconfig)
 - [Configuration](https://github.com/Kriegslustig/meteor-altboiler#configuration)
 - [TODO](https://github.com/Kriegslustig/meteor-altboiler#todo)
 
