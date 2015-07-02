@@ -1,4 +1,4 @@
-# meteor-altboiler - 0.2.0
+# meteor-altboiler - 0.3.0
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
@@ -6,7 +6,7 @@ Loading meteor can take over a minute to load on slow networks. It is huge. This
 
 ## Issues
 
-Don't hesitate to create an Issue just check the [TODO]() section first. If you're not sure if it's a bug or an issue with your set up, just PM me. :)
+Don't hesitate to create an Issue just check the [TODO](https://github.com/Kriegslustig/meteor-altboiler#todo) section first. If you're not sure if it's a bug or an issue with your set up, just PM me. :)
 
 ## Table of Contents
 
