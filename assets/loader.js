@@ -55,7 +55,7 @@ loader.removerById = function removerById (elementId) {
 /*
  * To make it run both client- and server-side,
  * I need to do this.
- * It only runs server side, when it's beeing tested
+ * It only runs server side, when it's being tested
  * It's actually attached to an instance of _Altboiler
  * This looks pretty ugly.
  * But it's the *best* in this case

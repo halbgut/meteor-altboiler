@@ -10,7 +10,7 @@ var boilerUtils = _altboilerScope.boilerUtils
  * `maniUtils` - Utilities for the handling of manifests
  * `boilerUtils` - Utilities to help generating the boilerplate
  * returns an instance of `altboiler`
- * This function exsists just to make the thing easier to test.
+ * This function exists just to make the thing easier to test.
  * All functions inside this object are exported.
  * It's to make testing easier.
  */
@@ -107,7 +107,7 @@ altboiler = new _Altboiler(
 )
 
 /*
- * This listenes for all routes,
+ * This listens for all routes,
  * but doesn't conflict with any resources
  */
 WebApp.connectHandlers.use(function (req, res, next) {
@@ -115,7 +115,7 @@ WebApp.connectHandlers.use(function (req, res, next) {
 })
 
 /*
- * This serves the concateneted app script.
+ * This serves the concatenated app script.
  */
 var allIncludes = maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest)
 WebApp.rawConnectHandlers.use(APP_SCRIPT, function (req, res, next) {

@@ -38,13 +38,14 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use(['tinytest', 'underscore', 'kriegslustig:altboiler'])
+  /* A test-template to test the `Assets` stuff */
   api.addFiles(
     ['tests/assets/testTemplate.html'],
     'server',
     {isAsset: true}
   )
   api.addFiles(
-    /* To test that scripts */
+    /* To test that script's scope, I need to manually add it */
     ['assets/loader.js'],
     'server'
   )
