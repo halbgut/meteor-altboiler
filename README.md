@@ -56,32 +56,36 @@ When a client hits the server it responds with the rendered altboiler `Boilerpla
 * The app-script is loaded over the raw connect-handler
 * `onLoad` hook triggers
 
-### `altboiler.getTemplate(templateName[, assets])`
+### `altboiler.getTemplate(templateName[, assets])` - *Server*
 
 **templateName** - `TemplateName` | `Template`: If you pass the filename of a resource, you have to pass the `Assets`-object
 **Assets** - `Object`: The current contexts `Assets` object
 
 The templates get rendered using `meteorhacks:ssr`. So you can also register helpers and stuff. You might want to check out [it's docs](https://github.com/meteorhacks/meteor-ssr). `altboiler.getTemplate` is registered as a server-side global helper, it's called `getServerTemplate`.
 
-### `altboiler.config(config)`
+### `altboiler.config(config)` - *Server*
 
 **config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the new one will be used.
 
 This configures altboiler. The configuration is saved in `altboiler.configuration`.
+
+#### When to call `altboiler.config`
+
+Normally, when you configure altboiler you'll use `getTemplate`. It renders a template using SSR and returns static HTML. You'll often bind some data-context to that call. To make the server's first response as quick as possible, you'll want to decrease the times a loading template is rendered. If your data is static, that's easy to do. You can just put the call to `altboiler.config` inside a `Meteor.startup` call and use `altboiler.getTemplate.call`. That way the template is only rendered once.
 
 ## Configuration
 
 ### `css` - `Array` || `String`
 An array of strings of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
 
-### `js` - `Array` || `String`
-Same as the CSS. The configured JS strings will be executed right after `assets/loader.js`.
+### `js` - `Array` || `String` || `Function`
+Same as the CSS. The configured JS will be executed right after `assets/loader.js`. The array may also contain functions. `toString` will be called on these. It is then executed after the HTML and CSS is loaded. There is a little problem with this tough. The HTML is not guaranteed to be rendered when this is loaded tough. So you might want to wrap you script inside a `setTimeout(someFunc, 0)`.
 
 ### `action` - `String` || `Function`
 This is what will be served to all routes before meteor. The best way to use this, is to create a `.html` file as an asset and then call `altboiler.getTemplate.call`.
 
-### `onLoad` - `Array` || `Function`
-An array of functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue.
+### `onLoad` - `Array` || `String` || `Function`
+An array of strings or functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue. You can interact with the script inside the `boilerplate.configuration.js`. You may get variables from the `window` object, instead of searching them inside the global-scope. This is because the onLoad listener is installed before `boilerplate.configuration.js` is executed. So you'll get an `is undefined` error when you try to get a variable defined inside `boilerplate.configuration.js` directly.
 
 ## TODO
-...
+* Fix the order of the connectHandlers
