@@ -76,10 +76,10 @@ Normally, when you configure altboiler you'll use `getTemplate`. It renders a te
 ## Configuration
 
 ### `css` - `Array` || `String`
-An array of strings of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
+An array of strings of CSS or a string of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
 
 ### `js` - `Array` || `String` || `Function`
-Same as the CSS. The configured JS will be executed right after `assets/loader.js`. The array may also contain functions. `toString` will be called on these. It is then executed after the HTML and CSS is loaded. There is a little problem with this tough. The HTML is not guaranteed to be rendered when this is loaded tough. So you might want to wrap you script inside a `setTimeout(someFunc, 0)`.
+Same as the css option. The configured JS will be executed right after `assets/loader.js`. The array may also contain functions. `toString` will be called on these. It is then executed after the HTML and CSS is loaded. There is a little problem with this tough. The HTML is not guaranteed to be rendered when this is loaded tough. So you might want to wrap you script inside a `setTimeout(someFunc, 0)`.
 
 ### `action` - `String` || `Function`
 This is what will be served to all routes before meteor. The best way to use this, is to create a `.html` file as an asset and then call `altboiler.getTemplate.call`.
@@ -87,5 +87,8 @@ This is what will be served to all routes before meteor. The best way to use thi
 ### `onLoad` - `Array` || `String` || `Function`
 An array of strings or functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue. You can interact with the script inside the `boilerplate.configuration.js`. You may get variables from the `window` object, instead of searching them inside the global-scope. This is because the onLoad listener is installed before `boilerplate.configuration.js` is executed. So you'll get an `is undefined` error when you try to get a variable defined inside `boilerplate.configuration.js` directly.
 
+### `showLoader` - `Array` || `String` || `Function` || Boolean
+This can basically be anything. If you pass an array, `_.every` is used to check every values `truthyness`. The configured object is inside the `connectHandlers.use` call. The loader is served if the/all check/s return/s true. You might need to use this to circumvent altboiler when serving resources. Normally this isn't necessary, because the `connectHandlers.use` call is deferred using `setTimeout`. But there could be cases where you too want to make sure you `connectHandlers.use` call is made last. Try to avoid this
+
 ## TODO
-* Write an API to use connectHandlers
+* Go over the README
