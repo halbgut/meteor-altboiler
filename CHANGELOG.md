@@ -9,7 +9,7 @@
 * Fix the meteor CSS loading
 * Add a default CSS
 
-## 0.4.0 [UNRELEASED]
+## 0.4.0
 * Add support for iron:router server-side route
 * Add the `showLoader` option
 * Remove the getTemplate function and SSR
