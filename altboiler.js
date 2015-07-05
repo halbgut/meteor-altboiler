@@ -1,6 +1,7 @@
 
 var maniUtils = _altboilerScope.maniUtils
 var boilerUtils = _altboilerScope.boilerUtils
+var compatUtils = _altboilerScope.compatUtils
 
 /*********************************
  *********** DEFINITION **********
@@ -113,7 +114,9 @@ altboiler = new _Altboiler(
  * but doesn't conflict with any resources
  */
 WebApp.connectHandlers.use(function (req, res, next) {
-  res.end(altboiler.Boilerplate())
+  compatUtils(function () {
+    res.end(altboiler.Boilerplate())
+  }, next, req.originalUrl)
 })
 
 /*

@@ -29,6 +29,8 @@ Package.onUse(function(api) {
       'lib/statics.js',
       'lib/maniUtils.js',
       'lib/boilerUtils.js',
+      'lib/compatUtils.js',
+      'lib/compat/iron-router.js',
       'altboiler.js'
     ],
     'server'
