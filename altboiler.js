@@ -66,22 +66,6 @@ _Altboiler = function Altboiler (
     return this.tmpConf = _.extend(this.tmpConf, config)
   }
 
-  /* altboiler.getTemplate(templateName, assets)
-   * `templateName` - The filename of a template
-   * `assets` - Meteors `Assets` object
-   * returns the rendered template if its found, if not it returns `templateName`
-   * Renders a template and returns HTML
-   * You can bind a context to it to use it as a context for the template
-   * The `assets` argument is required, because otherwise I can't access the apps assets
-   */
-  altboiler.getTemplate = function getTemplate (templateName, assets) {
-    assets = assets || Assets
-    var rawTemplate = templateName.substr(-5) === '.html' ? assets.getText(templateName) : templateName
-    if(!rawTemplate) return templateName
-    SSR.compileTemplate(templateName, rawTemplate)
-    return SSR.render(templateName, this)
-  }
-
   /* altboiler.Boilerplate()
    * returns the rendered boilerplate
    * It renderes the template `assets/main.html`
@@ -89,27 +73,25 @@ _Altboiler = function Altboiler (
   altboiler.Boilerplate = function Boilerplate () {
     config = _.extend(this.configuration, this.tmpConf)
     this.tmpConf = {}
-    return this.getTemplate.call(
+    var boilerplateRenderCode = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true });
+    return Blaze.toHTML(Blaze.With(
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
         APP_SCRIPT,
         this.renderAction(this.configuration.action),
         this.configuration
       ),
-      'assets/main.html'
-    )
+      eval(boilerplateRenderCode)
+    ))
   }
 
   /* altboiler.renderAction(action)
    * `action` - A template's filename, function or a simple string of HTML
    * returns the rendered action.
    */
-  altboiler.renderAction = function renderAction (action, assets) {
+  altboiler.renderAction = function renderAction (action) {
     if(typeof action === 'function') return action()
-    if(typeof action === 'string') {
-      if(action.substr(-5) === '.html') return this.getTemplate(action, assets)
-      return action
-    }
+    if(typeof action === 'string') return action
   }
 
   return altboiler

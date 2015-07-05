@@ -12,7 +12,7 @@ Package.onUse(function(api) {
     'underscore',
     'webapp',
     'minifiers',
-    'meteorhacks:ssr@2.1.2',
+    'spacebars-compiler'
   ])
   api.addFiles(
     [

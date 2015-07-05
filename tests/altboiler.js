@@ -7,31 +7,6 @@ function cleanLB (str) {
   return str
 }
 
-Tinytest.add('altboiler.getTemplate', function (test) {
-  var altboiler = newAltboiler()
-  var testTemplate = 'tests/assets/testTemplate.html'
-  test.throws(altboiler.getTemplate.bind(null, 'test.html', Assets)) // It should fail when the passed Asset doesn\'t exsist
-  test.isTrue(!!altboiler.getTemplate.call({}, testTemplate, Assets), 'It should render registered assets')
-  test.equal(
-    altboiler.getTemplate.call(
-      {test: [1, 2]},
-      testTemplate,
-      Assets
-    ),
-    '<div>12</div>',
-    'It should render assets as spacebars templates'
-  )
-  test.equal(
-    altboiler.getTemplate.call(
-      {test: [1, 2]},
-      '<div>{{ #each test }}{{ this }}{{ /each }}</div>',
-      Assets
-    ),
-    '<div>12</div>',
-    'It should treat the first arg as the template if it\'s not a filename'
-  )
-})
-
 Tinytest.add('altboiler.config', function (test) {
   var altboiler = newAltboiler()
   test.equal(typeof altboiler.config, 'function', 'It should be a function')
@@ -65,6 +40,5 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
 Tinytest.add('altboiler.renderAction', function (test) {
   var altboiler = newAltboiler()
   test.equal(altboiler.renderAction('someString'), 'someString', 'It should return a string if it\'s not a template')
-  test.equal(altboiler.renderAction('tests/assets/testTemplate.html', Assets), '<div></div>', 'It should be able to handle templates')
   test.equal(altboiler.renderAction(function () {return '21'}), '21', 'It should be able to handle functions returning strings')
 })
