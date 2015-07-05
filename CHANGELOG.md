@@ -12,3 +12,4 @@
 ## 0.4.0 [UNRELEASED]
 * Add support for iron:router server-side route
 * Add the `showLoader` option
+* Remove the getTemplate function and SSR
