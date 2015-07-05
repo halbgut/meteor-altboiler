@@ -4,6 +4,8 @@ A non render-blocking alternative to the Meteor-core boilerplate-generator packa
 
 Loading meteor can take over a minute to load on slow networks. It is huge. This makes for an awful UX. With this package you can server static HTML first and then load meteor in the background. You could for an example serve a loading screen first. Or you could also render the whole site without the parts that need a connection to the server for.
 
+You can see a demo [here](http://altboiler.meteor.com/).
+
 ## Issues
 
 Don't hesitate to create an Issue just check the [TODO](https://github.com/Kriegslustig/meteor-altboiler#todo) section first. If you're not sure if it's a bug or an issue with your set up, just PM me. :)
