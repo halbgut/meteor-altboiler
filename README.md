@@ -73,6 +73,29 @@ This configures altboiler. The configuration is saved in `altboiler.configuratio
 
 Normally, when you configure altboiler you'll use `getTemplate`. It renders a template using SSR and returns static HTML. You'll often bind some data-context to that call. To make the server's first response as quick as possible, you'll want to decrease the times a loading template is rendered. If your data is static, that's easy to do. You can just put the call to `altboiler.config` inside a `Meteor.startup` call and use `altboiler.getTemplate.call`. That way the template is only rendered once.
 
+### `altboiler.set(config)` - *Server*
+
+**config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the temp one will be used.
+
+This function sets temporary configuration options. The object passed to this function is used to render the boilerplate once and is emptied after that. You might also want to use different loading screens for different routes. That's what `altboiler.set` is for. Here's a minimal example using `iron:router`:
+
+`server/routes.js`
+```
+Router.route('/', function () {
+  altboiler.set({
+    action: 'Welcome to the front page!'
+  })
+  this.next()
+}, {where: 'server'})
+```
+
+`client/routes.js`
+```
+Router.route('/', {
+  name: 'home'
+})
+```
+
 ## Configuration
 
 ### `css` - `Array` || `String`
@@ -92,3 +115,4 @@ This can basically be anything. If you pass an array, `_.every` is used to check
 
 ## TODO
 * Go over the README
+* Remove SSR
