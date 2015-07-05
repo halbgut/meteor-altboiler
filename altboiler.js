@@ -43,12 +43,27 @@ _Altboiler = function Altboiler (
     showLoader: true
   }
 
+  /* altboiler.tmpConf
+   * This object overrides altboiler.configuration
+   * The object is emptied after every call to `Boilerplate`
+   */
+  altboiler.tmpConf = {}
+
   /* altboiler.config(config)
    * `config` - An object which is merged with the current configuration
    * returns the new configuration
    */
   altboiler.config = function config (config) {
     return this.configuration = _.extend(this.configuration, config)
+  }
+
+
+  /* altboiler.set(config)
+   * `config` - An object which is merged with the current configuration
+   * The options configured here will only be used once
+   */
+  altboiler.set = function set (config) {
+    return this.tmpConf = _.extend(this.tmpConf, config)
   }
 
   /* altboiler.getTemplate(templateName, assets)
@@ -72,6 +87,8 @@ _Altboiler = function Altboiler (
    * It renderes the template `assets/main.html`
    */
   altboiler.Boilerplate = function Boilerplate () {
+    config = _.extend(this.configuration, this.tmpConf)
+    this.tmpConf = {}
     return this.getTemplate.call(
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
