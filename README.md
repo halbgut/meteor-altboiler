@@ -34,7 +34,6 @@ altboiler.config({
   action: Assets.getText('myLoadScreen.html'),
 
   // Render a file saved in private/myLoadScript.js as JS inside the loading screen
-
   js: Assets.getText('myLoadScript.js'),
 
   // Render a file saved in private/myLoadStyles.css as CSS inside the loading screen
@@ -58,17 +57,17 @@ When a client hits the server it responds with the rendered altboiler `Boilerpla
 * The app-script is loaded over the raw connect-handler
 * `onLoad` hook triggers
 
-### `altboiler.config(config)` - *Server*
+### altboiler.config(config) - *Server*
 
 **config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the new one will be used.
 
 This configures altboiler. The configuration is saved in `altboiler.configuration`.
 
-#### When to call `altboiler.config`
+#### When to call altboiler.config
 
 Inside the action you might render a template and bind some data-context. To make the server's first response as quick as possible, you'll want to decrease the times a loading template is rendered. If your data is static, that's easy to do. You can just put the call to `altboiler.config` inside a `Meteor.startup` call and pass the rendered template instead of passing the render function. That way the template is only rendered once. If you are displaying data that could change, you'll need to put the call to `altboiler.config` outside of the `Meteor.startup` call. This makes things slower dough. Now every time a client requests your site, the template is rendered server-side. What you could do is use a [`cursor.observe`](https://docs.meteor.com/#/full/observe) and then call `altboiler.config` every time something changes. That'll make responses just as fast as they were before.
 
-### `altboiler.set(config)` - *Server*
+### altboiler.set(config) - *Server*
 
 **config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the temp one will be used.
 
@@ -93,19 +92,19 @@ Router.route('/', {
 
 ## Configuration
 
-### `css` - `Array` || `String`
+### css - *Array || String*
 An array of strings of CSS or a string of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
 
-### `js` - `Array` || `String` || `Function`
+#### js - *Array || String || Function*
 Same as the css option. The configured JS will be executed right after `assets/loader.js`. The array may also contain functions. `toString` will be called on these. It is then executed after the HTML and CSS is loaded. There is a little problem with this tough. The HTML is not guaranteed to be rendered when this is loaded tough. So you might want to wrap you script inside a `setTimeout(someFunc, 0)`.
 
-### `action` - `String` || `Function`
+#### `action` - *String || Function*
 This is what will be served to all routes before meteor. The best way to use this, is to create a `.html` file as an asset and then call `Assets.getText`. You might also want to use [`meteorhacks:SSR`](https://github.com/meteorhacks/meteor-ssr).
 
-### `onLoad` - `Array` || `String` || `Function`
+#### `onLoad` - *Array || String || Function*
 An array of strings or functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue. You can interact with the script inside the `boilerplate.configuration.js`. You may get variables from the `window` object, instead of searching them inside the global-scope. This is because the onLoad listener is installed before `boilerplate.configuration.js` is executed. So you'll get an `is undefined` error when you try to get a variable defined inside `boilerplate.configuration.js` directly.
 
-### `showLoader` - `Array` || `String` || `Function` || Boolean
+#### showLoader - *Array || String || Function || Boolean*
 This can basically be anything. If you pass an array, `_.every` is used to check every values `truthyness`. The configured object is inside the `connectHandlers.use` call. The loader is served if the/all check/s return/s true. You might need to use this to circumvent altboiler when serving resources. Normally this isn't necessary, because the `connectHandlers.use` call is deferred using `setTimeout`. But there could be cases where you too want to make sure you `connectHandlers.use` call is made last. Try to avoid this
 
 ## TODO
