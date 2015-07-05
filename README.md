@@ -1,4 +1,4 @@
-# meteor-altboiler - 0.3.0
+# meteor-altboiler - 0.4.0 [UNRELEASED]
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
@@ -88,4 +88,4 @@ This is what will be served to all routes before meteor. The best way to use thi
 An array of strings or functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue. You can interact with the script inside the `boilerplate.configuration.js`. You may get variables from the `window` object, instead of searching them inside the global-scope. This is because the onLoad listener is installed before `boilerplate.configuration.js` is executed. So you'll get an `is undefined` error when you try to get a variable defined inside `boilerplate.configuration.js` directly.
 
 ## TODO
-* Fix the order of the connectHandlers
+* Write an API to use connectHandlers

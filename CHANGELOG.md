@@ -8,3 +8,6 @@
 * Rename the `getTemplate` helper to `getServerTemplate`
 * Fix the meteor CSS loading
 * Add a default CSS
+
+## 0.4.0 [UNRELEASED]
+* Add support for iron:router server-side route
