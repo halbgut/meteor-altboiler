@@ -39,7 +39,8 @@ _Altboiler = function Altboiler (
         document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
         setTimeout(next, 200)
       }
-    ]
+    ],
+    showLoader: true
   }
 
   /* altboiler.config(config)
@@ -112,11 +113,19 @@ altboiler = new _Altboiler(
 /*
  * This listens for all routes,
  * but doesn't conflict with any resources
+ * I'm putting this to the end of the queue
+ * to make sure it gets added last.
+ * If I wouldn't do this, iron:router server-side would break.
+ * This isn't perfect, because a component of your app might
+ * try add a handler to serve a ressource asynchronously.
+ * That's why the `showLoader` options exists.
  */
-WebApp.connectHandlers.use(function (req, res, next) {
-  compatUtils(function () {
-    res.end(altboiler.Boilerplate())
-  }, next, req.originalUrl)
+_.defer(function () {
+  WebApp.connectHandlers.use(function (req, res, next) {
+    compatUtils(function () {
+      res.end(altboiler.Boilerplate())
+    }, next, req.originalUrl, altboiler.configuration.showLoader)
+  })
 })
 
 /*
