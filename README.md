@@ -18,6 +18,8 @@ Don't hesitate to create an Issue just check the [TODO](https://github.com/Krieg
   - [`altboiler.config`](#altboilerconfigconfig---server)
   - [`altboiler.set`](#altboilersetconfig---server)
   - [`altboiler.configuration`](#altboilerconfiguration)
+  - [`altboiler.Boilerplate`](#altboilerboilerplateconfig)
+  - [`altboiler.serveBoilerplate`](#altboiler)
 - [TODO](#todo)
 
 ## Installing
@@ -69,7 +71,7 @@ Inside the action you might render a template and bind some data-context. To mak
 
 **config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the temp one will be used. [Check the **configuration-section** for more info](#configuration)
 
-This function sets temporary configuration options. The object passed to this function is used to render the boilerplate once and is emptied after that. You might also want to use different loading screens for different routes. That's what `altboiler.set` is for. Here's a minimal example using `iron:router`:
+This function sets temporary configuration options. The object passed to this function is used to render the boilerplate once and is emptied after that. It's saved inside `altboiler.tmpConf`. You might also want to use different loading screens for different routes. That's what `altboiler.set` is for. Here's a minimal example using `iron:router`:
 
 `server/routes.js`
 ```js
@@ -105,6 +107,18 @@ An array of strings or functions to be triggered when the app-scripts are loaded
 
 #### showLoader - *Array || String || Function || Boolean*
 This option basically does what its name says. It is checked before the loader is served. If the value inside it is *truthy*, the loader is rendered, otherwise normal meteor is rendered (technically `next` is called). If you pass an array, `_.every` is used to check every values *truthyness*. The configured object is used inside the `connectHandlers.use` call. You might need to use this to circumvent altboiler when serving resources. Normally this isn't necessary, because the `connectHandlers.use` call is deferred using `setTimeout`. But there could be cases where you too want to make sure you `connectHandlers.use` call is made last.
+
+### altboiler.Boilerplate([config])
+
+**config** - `Object`: An object holding configuration options. If this is not defined `altboiler.configuration` will be used. [Check the **configuration-section** for more info](#configuration)
+
+### altboiler.serveBoilerplate(req, res, next)
+
+**req** - `Object`: A request-obeject as defined by the node-docs
+**res** - `Object`: A response-obeject as defined by the node-docs
+**next** - `Function`: The next function on the stack check the [connect docs](https://www.npmjs.com/package/connect) for more info
+
+This function is largely for internal use. It wraps the `altboiler.Boilerplate` function, checks `altboiler.configuration.showLoader` and merges the `tmpConf` (the options from `altboiler.set`).
 
 ## TODO
 * Go over the README
