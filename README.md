@@ -19,7 +19,7 @@ Don't hesitate to create an Issue just check the [TODO](https://github.com/Krieg
   - [`altboiler.set`](#altboilersetconfig---server)
   - [`altboiler.configuration`](#altboilerconfiguration)
   - [`altboiler.Boilerplate`](#altboilerboilerplateconfig)
-  - [`altboiler.serveBoilerplate`](#altboiler)
+  - [`altboiler.serveBoilerplate`](#altboilerserveboilerplatereq-res-next)
 - [TODO](#todo)
 
 ## Installing
