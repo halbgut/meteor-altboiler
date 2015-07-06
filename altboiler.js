@@ -75,11 +75,7 @@ _Altboiler = function Altboiler (
    * returns the rendered boilerplate
    * It renderes the template `assets/main.html`
    */
-  altboiler.Boilerplate = function Boilerplate () {
-    var config = _.clone(this.configuration)
-    _.extend(config, this.tmpConf)
-    console.log([this.configuration, this.tmpConf])
-    this.tmpConf = {}
+  altboiler.Boilerplate = function Boilerplate (config) {
     return Blaze.toHTML(Blaze.With(
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
@@ -89,6 +85,19 @@ _Altboiler = function Altboiler (
       ),
       eval(altboiler.mainTemplate)
     ))
+  }
+
+  /* altboiler.serveBoilerplate(req, res, next)
+   * The function used to serve the boilerplate
+   */
+  altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
+    var self = this
+    var config = _.clone(self.configuration)
+    _.extend(config, self.tmpConf)
+    self.tmpConf = {}
+    compatUtils(function () {
+      res.end(self.Boilerplate(config))
+    }, next, req.originalUrl, self.configuration.showLoader)
   }
 
   /* altboiler.renderAction(action)
@@ -126,11 +135,7 @@ altboiler = new _Altboiler(
  * That's why the `showLoader` options exists.
  */
 _.defer(function () {
-  WebApp.connectHandlers.use(function (req, res, next) {
-    compatUtils(function () {
-      res.end(altboiler.Boilerplate())
-    }, next, req.originalUrl, altboiler.configuration.showLoader)
-  })
+  WebApp.connectHandlers.use(altboiler.serveBoilerplate.bind(altboiler))
 })
 
 /*
