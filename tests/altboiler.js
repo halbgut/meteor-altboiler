@@ -42,3 +42,13 @@ Tinytest.add('altboiler.renderAction', function (test) {
   test.equal(altboiler.renderAction('someString'), 'someString', 'It should return a string if it\'s not a template')
   test.equal(altboiler.renderAction(function () {return '21'}), '21', 'It should be able to handle functions returning strings')
 })
+
+Tinytest.add('altboiler.set', function (test) {
+  var altboiler = newAltboiler()
+  test.equal(typeof altboiler.set, 'function', 'It should be a function')
+  test.isTrue(altboiler.set({test:true}).test, 'It should return the object that is passed to it.')
+  altboiler.set({css: '.titanic {float: none}'})
+  test.isTrue(/\.titanic/g.test(altboiler.Boilerplate()), 'altboiler.Boilerplate should use the passed options')
+  console.log(altboiler.Boilerplate())
+  test.isFalse(/\.titanic/g.test(altboiler.Boilerplate()), 'altboiler.Boilerplate should only use the passed options once')
+})
