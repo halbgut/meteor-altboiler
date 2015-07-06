@@ -17,7 +17,7 @@ Don't hesitate to create an Issue just check the [TODO](https://github.com/Krieg
 - [API](#api)
   - [`altboiler.config`](#altboilerconfigconfig---server)
   - [`altboiler.set`](#altboilersetconfig---server)
-- [Configuration](#configuration)
+  - [`altboiler.configuration`](#altboilerconfiguration)
 - [TODO](#todo)
 
 ## Installing
@@ -39,8 +39,6 @@ altboiler.config({
   // Render a file saved in private/myLoadStyles.css as CSS inside the loading screen
   css: Assets.getText('myLoadScript.css')
 })
-
-
 ```
 
 ## API
@@ -74,7 +72,7 @@ Inside the action you might render a template and bind some data-context. To mak
 This function sets temporary configuration options. The object passed to this function is used to render the boilerplate once and is emptied after that. You might also want to use different loading screens for different routes. That's what `altboiler.set` is for. Here's a minimal example using `iron:router`:
 
 `server/routes.js`
-```
+```js
 Router.route('/', function () {
   altboiler.set({
     action: 'Welcome to the front page!'
@@ -84,15 +82,16 @@ Router.route('/', function () {
 ```
 
 `client/routes.js`
-```
+```js
 Router.route('/', {
   name: 'home'
 })
 ```
 
-## Configuration
+### altboiler.configuration
+All the properties set using `altboiler.config` will be saved inside `altboiler.configuration`. The structure of that object is documented here. Normally you don't need to access this object directly.
 
-### css - *Array || String*
+#### css - *Array || String*
 An array of strings of CSS or a string of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
 
 #### js - *Array || String || Function*
@@ -105,7 +104,17 @@ This is what will be served to all routes before meteor. The best way to use thi
 An array of strings or functions to be triggered when the app-scripts are loaded. The functions have to take one argument `next` which calls the next function inside the `onLoad` queue. You can interact with the script inside the `boilerplate.configuration.js`. You may get variables from the `window` object, instead of searching them inside the global-scope. This is because the onLoad listener is installed before `boilerplate.configuration.js` is executed. So you'll get an `is undefined` error when you try to get a variable defined inside `boilerplate.configuration.js` directly.
 
 #### showLoader - *Array || String || Function || Boolean*
-This can basically be anything. If you pass an array, `_.every` is used to check every values `truthyness`. The configured object is inside the `connectHandlers.use` call. The loader is served if the/all check/s return/s true. You might need to use this to circumvent altboiler when serving resources. Normally this isn't necessary, because the `connectHandlers.use` call is deferred using `setTimeout`. But there could be cases where you too want to make sure you `connectHandlers.use` call is made last. Try to avoid this
+This option basically does what its name says. It is checked before the loader is served. If the value inside it is *truthy*, the loader is rendered, otherwise normal meteor is rendered (technically `next` is called). If you pass an array, `_.every` is used to check every values *truthyness*. The configured object is used inside the `connectHandlers.use` call. You might need to use this to circumvent altboiler when serving resources. Normally this isn't necessary, because the `connectHandlers.use` call is deferred using `setTimeout`. But there could be cases where you too want to make sure you `connectHandlers.use` call is made last. This can be slow, here's an example of how you can minimize that impact using iron:router:
+
+```js
+Router.route('/someRoute', {
+  action: function () {
+    altboiler.set({ showLoader: false })
+    this.response.end(Assets.getText('someTextFile.txt'))
+  },
+  where: 'server'
+})
+```
 
 ## TODO
 * Go over the README
