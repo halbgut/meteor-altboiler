@@ -34,24 +34,24 @@ Tinytest.add('altboiler.config', function (test) {
     onLoad: ['console.log("loadeed!")'],
     action: function () { return 'someAction...' },
   })
-  test.matches(cleanLB(altboiler.Boilerplate(altboiler.configuration)), /<style\stype="text\/css">.*div\s{}/gm, 'The hooked css should be rendered')
-  test.matches(cleanLB(altboiler.Boilerplate(altboiler.configuration)), /<script.*console\.log\("moaarr\sdrama!"\)/gm, 'The hooked js should be rendered')
-  test.matches(cleanLB(altboiler.Boilerplate(altboiler.configuration)), /<script.*console\.log\("loadeed!"\)/gm, 'The hooked js should be rendered')
+  test.matches(cleanLB(altboiler.Boilerplate()), /<style\stype="text\/css">.*div\s{}/gm, 'The hooked css should be rendered')
+  test.matches(cleanLB(altboiler.Boilerplate()), /<script.*console\.log\("moaarr\sdrama!"\)/gm, 'The hooked js should be rendered')
+  test.matches(cleanLB(altboiler.Boilerplate()), /<script.*console\.log\("loadeed!"\)/gm, 'The hooked js should be rendered')
   ; (function () {
     var altboiler = newAltboiler()
     altboiler.config({
       action: '<script>console.log("damn trolls")</script>'
     })
-    test.matches(cleanLB(altboiler.Boilerplate(altboiler.configuration)), /<body>.*"damn\strolls"/gm, 'The action should be rendered inside the body')
+    test.matches(cleanLB(altboiler.Boilerplate()), /<body>.*"damn\strolls"/gm, 'The action should be rendered inside the body')
   })()
 })
 
 Tinytest.add('altboiler.Boilerplate', function (test) {
   var altboiler = newAltboiler()
-  test.isTrue(altboiler.Boilerplate(altboiler.configuration).indexOf('<body>') > -1, 'Its return value should contain a body element')
-  test.isFalse(altboiler.Boilerplate(altboiler.configuration).indexOf('<DOCTYPE') > -1, 'Its return value should\'nt contain a doctype')
-  test.isTrue(altboiler.Boilerplate(altboiler.configuration).indexOf('<head>') > -1, 'Its return value should contain a head element')
-  test.isTrue(altboiler.Boilerplate(altboiler.configuration).indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
+  test.isTrue(altboiler.Boilerplate().indexOf('<body>') > -1, 'Its return value should contain a body element')
+  test.isFalse(altboiler.Boilerplate().indexOf('<DOCTYPE') > -1, 'Its return value should\'nt contain a doctype')
+  test.isTrue(altboiler.Boilerplate().indexOf('<head>') > -1, 'Its return value should contain a head element')
+  test.isTrue(altboiler.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
 })
 
 Tinytest.add('altboiler.renderAction', function (test) {

@@ -76,6 +76,7 @@ _Altboiler = function Altboiler (
    * It renderes the template `assets/main.html`
    */
   altboiler.Boilerplate = function Boilerplate (config) {
+    config = config || this.configuration
     return Blaze.toHTML(Blaze.With(
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
