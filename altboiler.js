@@ -66,6 +66,11 @@ _Altboiler = function Altboiler (
     return this.tmpConf = config
   }
 
+  /* altboiler.mainTemplate
+   * The blaze render code
+   */
+  altboiler.mainTemplate = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true });
+
   /* altboiler.Boilerplate()
    * returns the rendered boilerplate
    * It renderes the template `assets/main.html`
@@ -75,7 +80,6 @@ _Altboiler = function Altboiler (
     _.extend(config, this.tmpConf)
     console.log([this.configuration, this.tmpConf])
     this.tmpConf = {}
-    var boilerplateRenderCode = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true });
     return Blaze.toHTML(Blaze.With(
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
@@ -83,7 +87,7 @@ _Altboiler = function Altboiler (
         this.renderAction(config.action),
         config
       ),
-      eval(boilerplateRenderCode)
+      eval(altboiler.mainTemplate)
     ))
   }
 
