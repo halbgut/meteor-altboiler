@@ -66,27 +66,25 @@ _Altboiler = function Altboiler (
     return this.tmpConf = config
   }
 
-  /* altboiler.mainTemplate
-   * The blaze render code
-   */
-  altboiler.mainTemplate = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true });
-
   /* altboiler.Boilerplate()
    * returns the rendered boilerplate
    * It renderes the template `assets/main.html`
    */
-  altboiler.Boilerplate = function Boilerplate (config) {
-    config = config || this.configuration
-    return Blaze.toHTML(Blaze.With(
-      boilerUtils.getBoilerTemplateData(
-        maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
-        APP_SCRIPT,
-        this.renderAction(config.action),
-        config
-      ),
-      eval(altboiler.mainTemplate)
-    ))
-  }
+  altboiler.Boilerplate = (function () {
+    var mainTemplate = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true });
+    return function Boilerplate (config) {
+      config = config || this.configuration
+      return Blaze.toHTML(Blaze.With(
+        boilerUtils.getBoilerTemplateData(
+          maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
+          APP_SCRIPT,
+          this.renderAction(config.action),
+          config
+        ),
+        eval(mainTemplate)
+      ))
+    }
+  })()
 
   /* altboiler.serveBoilerplate(req, res, next)
    * The function used to serve the boilerplate
