@@ -49,6 +49,5 @@ Tinytest.add('altboiler.set', function (test) {
   test.isTrue(altboiler.set({test:true}).test, 'It should return the object that is passed to it.')
   altboiler.set({css: '.titanic {float: none}'})
   test.isTrue(/\.titanic/g.test(altboiler.Boilerplate()), 'altboiler.Boilerplate should use the passed options')
-  console.log(altboiler.Boilerplate())
   test.isFalse(/\.titanic/g.test(altboiler.Boilerplate()), 'altboiler.Boilerplate should only use the passed options once')
 })
