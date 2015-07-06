@@ -54,7 +54,7 @@ _Altboiler = function Altboiler (
    * returns the new configuration
    */
   altboiler.config = function config (config) {
-    return this.configuration = _.extend(this.configuration, config)
+    return _.extend(this.configuration, config)
   }
 
 
@@ -63,7 +63,7 @@ _Altboiler = function Altboiler (
    * The options configured here will only be used once
    */
   altboiler.set = function set (config) {
-    return this.tmpConf = _.extend(this.tmpConf, config)
+    return this.tmpConf = config
   }
 
   /* altboiler.Boilerplate()
@@ -71,7 +71,9 @@ _Altboiler = function Altboiler (
    * It renderes the template `assets/main.html`
    */
   altboiler.Boilerplate = function Boilerplate () {
-    config = _.extend(this.configuration, this.tmpConf)
+    var config = _.clone(this.configuration)
+    _.extend(config, this.tmpConf)
+    console.log([this.configuration, this.tmpConf])
     this.tmpConf = {}
     var boilerplateRenderCode = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true });
     return Blaze.toHTML(Blaze.With(
