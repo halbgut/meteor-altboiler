@@ -78,8 +78,8 @@ _Altboiler = function Altboiler (
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
         APP_SCRIPT,
-        this.renderAction(this.configuration.action),
-        this.configuration
+        this.renderAction(config.action),
+        config
       ),
       eval(boilerplateRenderCode)
     ))
