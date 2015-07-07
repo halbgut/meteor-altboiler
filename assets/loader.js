@@ -20,7 +20,7 @@ loader.onLoad = function onLoad (func) {
 loader.runOnLoadQueue = function runOnLoadQueue (queue) {
   queue = queue || this.onLoadQueue
   if(!queue.length) return
-  queue.pop()(this.runOnLoadQueue.bind(this, queue))
+  queue.shift()(this.runOnLoadQueue.bind(this, queue))
 }
 
 /* altboiler.loader.appender(head, body)
