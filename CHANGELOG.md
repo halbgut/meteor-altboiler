@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.4.2
+* Fix passing functions to altboiler.configuration.js
+
 ## 0.4.1
 * Fix `altboiler.set`
 * Fix error when `onLoad` or `js` is undefined
