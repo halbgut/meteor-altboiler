@@ -46,7 +46,7 @@ Tinytest.add('altboiler.config', function (test) {
   })()
   altboiler.configuration = {}
   altboiler.config({ js: function someFunc () {} })
-  test.isTrue(cleanLB(altboiler.Boilerplate()).indexOf('(function someFunc () {})()') > -1, 'If I pass a function as configuration.js it should be called when it\'s loaded')
+  test.isTrue(cleanLB(altboiler.Boilerplate()).indexOf('(function someFunc() {})()') > -1, 'If I pass a function as configuration.js it should be called when it\'s loaded')
 })
 
 Tinytest.add('altboiler.Boilerplate', function (test) {
