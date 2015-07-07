@@ -27,7 +27,7 @@ Tinytest.add('loader.runOnLoadQueue', function (test) {
     function (next) { testVar += 'test3'; next() }
   ]
   altboiler.loader.runOnLoadQueue()
-  test.equal(testVar, 'test3test2test1', 'It should synchronously run all functions in reverse inside loader.onLoadQueue')
+  test.equal(testVar, 'test1test2test3', 'It should synchronously run all functions in reverse inside loader.onLoadQueue')
 })
 
 Tinytest.add('loader.appender', function (test) {
