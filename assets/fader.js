@@ -1,8 +1,8 @@
-/* fadeIn.js
+/* fadeer.js
  * This makes the load screen fade in nicely.
  * This prevents falshing
  * I actually need to do the animation in JS
- * Otherwise the loadscreen would fadeIn and vanish
+ * Otherwise the loadscreen would fade in and vanish
  * If the load time was under 400ms
  */
 var totalTimeStep = 400

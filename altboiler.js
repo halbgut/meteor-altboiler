@@ -31,7 +31,7 @@ _Altboiler = function Altboiler (
      */
     action: Assets.getText('assets/default.html'),
     css: [Assets.getText('assets/styles.css')],
-    js: [Assets.getText('assets/fadeIn.js')],
+    js: [Assets.getText('assets/fader.js')],
     onLoad: [],
     showLoader: true
   }

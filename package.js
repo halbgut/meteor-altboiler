@@ -17,7 +17,7 @@ Package.onUse(function(api) {
   api.addFiles(
     [
       'assets/default.html',
-      'assets/fadeIn.js',
+      'assets/fader.js',
       'assets/styles.css',
       'assets/main.html',
       'assets/loader.js'
