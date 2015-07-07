@@ -29,7 +29,7 @@ _Altboiler = function Altboiler (
     /* action
      * The action called inside the load template
      */
-    action: 'assets/default.html',
+    action: Assets.getText('assets/default.html'),
     css: [Assets.getText('assets/styles.css')],
     js: [Assets.getText('assets/fadeIn.js')],
     onLoad: [
