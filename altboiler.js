@@ -30,11 +30,13 @@ _Altboiler = function Altboiler (
      * The action called inside the load template
      */
     action: 'assets/default.html',
-    css: [
-      Assets.getText('assets/styles.css')
-    ],
-    js: [],
+    css: [Assets.getText('assets/styles.css')],
+    js: [Assets.getText('assets/fadeIn.js')],
     onLoad: [
+      /* fadeOut(next)
+       * `next` - Calls the next onLoad hook
+       * Fade out the whole altboiler_boilerPlateLoader when the
+       */
       function fadeOut (next) {
         document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
         setTimeout(next, 200)

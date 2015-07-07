@@ -16,10 +16,11 @@ Package.onUse(function(api) {
   ])
   api.addFiles(
     [
-      'assets/main.html',
       'assets/default.html',
-      'assets/loader.js',
-      'assets/styles.css'
+      'assets/fadeIn.js',
+      'assets/styles.css',
+      'assets/main.html',
+      'assets/loader.js'
     ],
     'server',
     {isAsset: true}
