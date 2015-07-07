@@ -32,16 +32,7 @@ _Altboiler = function Altboiler (
     action: Assets.getText('assets/default.html'),
     css: [Assets.getText('assets/styles.css')],
     js: [Assets.getText('assets/fadeIn.js')],
-    onLoad: [
-      /* fadeOut(next)
-       * `next` - Calls the next onLoad hook
-       * Fade out the whole altboiler_boilerPlateLoader when the
-       */
-      function fadeOut (next) {
-        document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
-        setTimeout(next, 200)
-      }
-    ],
+    onLoad: [],
     showLoader: true
   }
 

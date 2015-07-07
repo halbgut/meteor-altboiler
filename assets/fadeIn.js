@@ -15,8 +15,14 @@ function fadeIn () {
   fadeInALittle(targetElem, 0)
 }
 function fadeInALittle (targetElem, oldOpacity) {
-  if(oldOpacity > 1) return
+  if(window.altboiler_stopStepping || oldOpacity > 1) return
   newOpacity = targetElem.style.opacity = oldOpacity + opacityStep
   setTimeout(fadeInALittle.bind(null, targetElem, newOpacity), timeSingleStep)
 }
 setTimeout(fadeIn, 0)
+
+altboiler.loader.onLoad(function stopFadeIn (next) {
+  window.altboiler_stopStepping = true
+  document.getElementById('altboiler_boilerPlateLoader').style.opacity = 0
+  next()
+})
