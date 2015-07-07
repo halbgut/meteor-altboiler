@@ -16,7 +16,7 @@ function fadeIn () {
 }
 function fadeInALittle (targetElem, oldOpacity) {
   if(oldOpacity > 1) return
-  newOpacity = targetElem.opacity = oldOpacity + opacityStep
+  newOpacity = targetElem.style.opacity = oldOpacity + opacityStep
   setTimeout(fadeInALittle.bind(null, targetElem, newOpacity), timeSingleStep)
 }
 setTimeout(fadeIn, 0)
