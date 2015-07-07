@@ -1,4 +1,4 @@
-# meteor-altboiler - 0.4.1
+# meteor-altboiler - 0.5.0 [UNRELEASED]
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
@@ -97,7 +97,9 @@ All the properties set using `altboiler.config` will be saved inside `altboiler.
 An array of strings of CSS or a string of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets).
 
 #### js - *Array || String || Function*
-Same as the css option. The configured JS will be executed right after `assets/loader.js`. The array may also contain functions. `toString` will be called on these. It is then executed after the HTML and CSS is loaded. There is a little problem with this tough. The HTML is not guaranteed to be rendered when this is loaded tough. So you might want to wrap you script inside a `setTimeout(someFunc, 0)`.
+Same as the css option. The configured JS will be executed right after `assets/loader.js`. The array may also contain functions. `toString` will be called on these and they will be wrapped in a closure (`(yourfunction)()`). It is then executed after the HTML and CSS is loaded. There is a little problem with this tough. The HTML is not guaranteed to be rendered when this is loaded tough. So you might want to wrap you script inside a `setTimeout(someFunc, 0)`. By default `altboiler.configuration.js` is an array containing a script that makes the load screen nicely fade in and out. So if you want to keep this functionality you may want to use `altboiler.configuration.js.push`.
+
+*Note: I'm actually a bit unsure as to wether or not it's a good idea to make the fade-in/-out script the default for `altboiler.configuration.js`. I think it might be a better idea to add another option called `beforeScript` or something. The downside of this would of course be a more complicated API. I'd love to get some feedback on this.*
 
 #### action - *String || Function*
 This is what will be served to all routes before meteor. The best way to use this, is to create a `.html` file as an asset and then call `Assets.getText`. You might also want to use [`meteorhacks:SSR`](https://github.com/meteorhacks/meteor-ssr).
