@@ -30,7 +30,7 @@ Package.onUse(function(api) {
       'lib/statics.js',
       'lib/maniUtils.js',
       'lib/boilerUtils.js',
-      'lib/compatUtils.js',
+      'lib/showLoaderUtils.js',
       'altboiler.js'
     ],
     'server'

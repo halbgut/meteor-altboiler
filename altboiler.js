@@ -1,7 +1,7 @@
 
 var maniUtils = _altboilerScope.maniUtils
 var boilerUtils = _altboilerScope.boilerUtils
-var compatUtils = _altboilerScope.compatUtils
+var showLoaderUtils = _altboilerScope.showLoaderUtils
 
 /*********************************
  *********** DEFINITION **********
@@ -87,7 +87,7 @@ _Altboiler = function Altboiler (
     var config = _.clone(self.configuration)
     _.extend(config, self.tmpConf)
     self.tmpConf = {}
-    compatUtils(function () {
+    showLoaderUtils(function () {
       res.end(self.Boilerplate(config))
     }, next, req.originalUrl, self.configuration.showLoader)
   }
