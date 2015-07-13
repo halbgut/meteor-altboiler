@@ -1,7 +1,5 @@
-
 var maniUtils = _altboilerScope.maniUtils
 var boilerUtils = _altboilerScope.boilerUtils
-var showLoaderUtils = _altboilerScope.showLoaderUtils
 
 /*********************************
  *********** DEFINITION **********
@@ -71,7 +69,7 @@ _Altboiler = function Altboiler (
         boilerUtils.getBoilerTemplateData(
           maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
           APP_SCRIPT,
-          this.renderAction(config.action),
+          this.executeFuncs(config.action),
           config
         ),
         eval(mainTemplate)
@@ -87,26 +85,33 @@ _Altboiler = function Altboiler (
    */
   altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
     var self = this
-    var config = _.clone(self.configuration)
-    _.extend(config, self.tmpConf)
+    var config = _.extend(_.clone(self.configuration), self.tmpConf)
     self.tmpConf = {}
-    showLoaderUtils(
-      function () {
-        res.end(self.Boilerplate(config))
-      },
-      next,
-      req.originalUrl,
-      config.showLoader
-    )
+    if(
+      config.showLoader === true ||
+      _.every([].concat(
+        this.executeFuncs(config.showLoader, req.originalUrl)
+      ))
+    ) {
+      res.end(self.Boilerplate(config))
+    } else {
+      next()
+    }
   }
 
-  /* altboiler.renderAction(action)
+  /* altboiler.executeFuncs(action)
    * `action` - A template's filename, function or a simple string of HTML
+   * `...` - Arguments passed to the `action` if it's a function
    * returns the rendered action.
    */
-  altboiler.renderAction = function renderAction (action) {
-    if(typeof action === 'function') return action()
-    if(typeof action === 'string') return action
+  altboiler.executeFuncs = function executeFuncs (action/* ... */) {
+    if(Array.prototype.isPrototypeOf(action)) {
+      return action.map(this.executeFuncs.bind(this))
+    }
+    if(typeof action === 'function') {
+      return action.apply(null, _.rest(arguments))
+    }
+    return action
   }
 
   return altboiler

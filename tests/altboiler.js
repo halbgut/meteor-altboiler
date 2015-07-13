@@ -57,10 +57,10 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
   test.isTrue(altboiler.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
 })
 
-Tinytest.add('altboiler.renderAction', function (test) {
+Tinytest.add('altboiler.executeFuncs', function (test) {
   var altboiler = newAltboiler()
-  test.equal(altboiler.renderAction('someString'), 'someString', 'It should return a string if it\'s not a template')
-  test.equal(altboiler.renderAction(function () {return '21'}), '21', 'It should be able to handle functions returning strings')
+  test.equal(altboiler.executeFuncs('someString'), 'someString', 'It should return a string if it\'s not a template')
+  test.equal(altboiler.executeFuncs(function () {return '21'}), '21', 'It should be able to handle functions returning strings')
 })
 
 Tinytest.add('altboiler.set', function (test) {
