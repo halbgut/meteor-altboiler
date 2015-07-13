@@ -80,6 +80,9 @@ _Altboiler = function Altboiler (
   })()
 
   /* altboiler.serveBoilerplate(req, res, next)
+   * `req` - `Object`: A request-obeject as defined by the node-docs
+   * `res` - `Object`: A response-obeject as defined by the node-docs
+   * `next` - `Function`: The next function on the stack check the [connect docs](https://www.npmjs.com/package/connect) for more info
    * The function used to serve the boilerplate
    */
   altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
@@ -87,9 +90,14 @@ _Altboiler = function Altboiler (
     var config = _.clone(self.configuration)
     _.extend(config, self.tmpConf)
     self.tmpConf = {}
-    showLoaderUtils(function () {
-      res.end(self.Boilerplate(config))
-    }, next, req.originalUrl, self.configuration.showLoader)
+    showLoaderUtils(
+      function () {
+        res.end(self.Boilerplate(config))
+      },
+      next,
+      req.originalUrl,
+      config.showLoader
+    )
   }
 
   /* altboiler.renderAction(action)
