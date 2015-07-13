@@ -88,7 +88,7 @@ _Altboiler = function Altboiler (
    */
   altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
     var self = this
-    var config = _.extend(_.clone(self.configuration), self.tmpConf)
+    var config = configUtils.deepMerge(self.configuration, self.tmpConf)
     self.tmpConf = {}
     if(configUtils.isTruthy(config.showLoader)) {
       res.end(self.Boilerplate(config))
