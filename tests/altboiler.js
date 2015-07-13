@@ -1,5 +1,9 @@
 function newAltboiler () {
-  return new _Altboiler(_altboilerScope.maniUtils, _altboilerScope.boilerUtils)
+  return new _Altboiler(
+    _altboilerScope.maniUtils,
+    _altboilerScope.boilerUtils,
+    _altboilerScope.configUtils
+  )
 }
 
 function cleanLB (str) {
@@ -55,12 +59,6 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
   test.isFalse(altboiler.Boilerplate().indexOf('<DOCTYPE') > -1, 'Its return value should\'nt contain a doctype')
   test.isTrue(altboiler.Boilerplate().indexOf('<head>') > -1, 'Its return value should contain a head element')
   test.isTrue(altboiler.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
-})
-
-Tinytest.add('altboiler.executeFuncs', function (test) {
-  var altboiler = newAltboiler()
-  test.equal(altboiler.executeFuncs('someString'), 'someString', 'It should return a string if it\'s not a template')
-  test.equal(altboiler.executeFuncs(function () {return '21'}), '21', 'It should be able to handle functions returning strings')
 })
 
 Tinytest.add('altboiler.set', function (test) {

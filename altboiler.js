@@ -1,5 +1,6 @@
 var maniUtils = _altboilerScope.maniUtils
 var boilerUtils = _altboilerScope.boilerUtils
+var configUtils = _altboilerScope.configUtils
 
 /*********************************
  *********** DEFINITION **********
@@ -15,7 +16,8 @@ var boilerUtils = _altboilerScope.boilerUtils
  */
 _Altboiler = function Altboiler (
   maniUtils,
-  boilerUtils
+  boilerUtils,
+  configUtils
 ) {
 
   var altboiler = {}
@@ -69,7 +71,7 @@ _Altboiler = function Altboiler (
         boilerUtils.getBoilerTemplateData(
           maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
           APP_SCRIPT,
-          this.executeFuncs(config.action),
+          configUtils.execFuncs(config.action),
           config
         ),
         eval(mainTemplate)
@@ -82,36 +84,17 @@ _Altboiler = function Altboiler (
    * `res` - `Object`: A response-obeject as defined by the node-docs
    * `next` - `Function`: The next function on the stack check the [connect docs](https://www.npmjs.com/package/connect) for more info
    * The function used to serve the boilerplate
+   * It manipulates the tempConf and checks showLoader
    */
   altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
     var self = this
     var config = _.extend(_.clone(self.configuration), self.tmpConf)
     self.tmpConf = {}
-    if(
-      config.showLoader === true ||
-      _.every([].concat(
-        this.executeFuncs(config.showLoader, req.originalUrl)
-      ))
-    ) {
+    if(configUtils.isTruthy(config.showLoader)) {
       res.end(self.Boilerplate(config))
     } else {
       next()
     }
-  }
-
-  /* altboiler.executeFuncs(action)
-   * `action` - A template's filename, function or a simple string of HTML
-   * `...` - Arguments passed to the `action` if it's a function
-   * returns the rendered action.
-   */
-  altboiler.executeFuncs = function executeFuncs (action/* ... */) {
-    if(Array.prototype.isPrototypeOf(action)) {
-      return action.map(this.executeFuncs.bind(this))
-    }
-    if(typeof action === 'function') {
-      return action.apply(null, _.rest(arguments))
-    }
-    return action
   }
 
   return altboiler
@@ -126,7 +109,8 @@ _Altboiler = function Altboiler (
  */
 altboiler = new _Altboiler(
   maniUtils,
-  boilerUtils
+  boilerUtils,
+  configUtils
 )
 
 /*
