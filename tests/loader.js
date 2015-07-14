@@ -30,10 +30,10 @@ Tinytest.add('loader.runOnLoadQueue', function (test) {
   test.equal(testVar, 'test1test2test3', 'It should synchronously run all functions in reverse inside loader.onLoadQueue')
 })
 
-Tinytest.add('loader.appender', function (test) {
+Tinytest.add('loader.headAppender', function (test) {
   var altboiler = newAltboilerWithLoader()
-  test.equal(typeof altboiler.loader.appender, 'function', 'It should be a function')
-  test.equal(typeof altboiler.loader.appender('head', 'body'), 'function', 'It should return a function')
+  test.equal(typeof altboiler.loader.headAppender, 'function', 'It should be a function')
+  test.equal(typeof altboiler.loader.headAppender('head'), 'function', 'It should return a function')
   // Sadly the dom part is hard to test and the functionality is trivial, so I'm leaving it at this
 })
 

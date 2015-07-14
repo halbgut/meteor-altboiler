@@ -23,17 +23,15 @@ loader.runOnLoadQueue = function runOnLoadQueue (queue) {
   queue.shift()(this.runOnLoadQueue.bind(this, queue))
 }
 
-/* altboiler.loader.appender(head, body)
+/* altboiler.loader.headAppender(head, body)
  * `head` - code to be appended to the head element
- * `body` - code to be appended to the body element
  * returns a function that appends the stuff
  * This is an internal helper.
  * It's just to keep assets/main.html clean
  */
-loader.appender = function appender (head, body) {
+loader.headAppender = function headAppender (head) {
   return function appendBodyAndHead (next) {
-    if(head) document.head.innerHTML += decodeURIComponent(head)
-    if(body) document.body.innerHTML += decodeURIComponent(body)
+    document.head.innerHTML += decodeURIComponent(head)
     next()
   }
 }
