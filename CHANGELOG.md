@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.7.0
+* Styles will now not be deleted onLoad anymore
+
 ## 0.6.0
 * Add a `content` option
 
