@@ -134,6 +134,9 @@ This option basically does what its name says. It is checked before the loader i
 
 The configured object is used inside the `connectHandlers.use` call. You might need to use this to circumvent altboiler when serving static HTML. Normally this isn't necessary, because the `connectHandlers.use` call is deferred using `setTimeout`. But there could be cases where you too want to make sure you `connectHandlers.use` call is made last.
 
+#### content - *String*
+The string defined here will be rendered into the server static HTML. It's different from action is that it isn't removed from the page when the meteor-core is loaded.
+
 ### altboiler.Boilerplate([config])
 
 **config** - `Object`: An object holding configuration options. If this is not defined `altboiler.configuration` will be used. [Check the **configuration-section** for more info](#configuration)
