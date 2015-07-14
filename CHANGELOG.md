@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.6.0
+* Add a `content` option
+
 ## 0.5.0
 * Fix passing functions to altboiler.configuration.js
 * Fix a bug in the default action

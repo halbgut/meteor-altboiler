@@ -1,4 +1,4 @@
-# meteor-altboiler - 0.5.0
+# meteor-altboiler - 0.6.0
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
