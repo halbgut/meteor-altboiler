@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.8.0
+* Render the head and body tags directly
+
 ## 0.7.0
 * Styles will now not be deleted onLoad anymore
 
