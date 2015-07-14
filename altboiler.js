@@ -65,7 +65,7 @@ _Altboiler = function Altboiler (
    * It renderes the template `assets/main.html`
    */
   altboiler.Boilerplate = (function () {
-    var mainTemplate = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true });
+    var mainTemplate = SpacebarsCompiler.compile(Assets.getText('assets/main.html'), { isBody: true })
     return function Boilerplate (config) {
       config = config || this.configuration
       return Blaze.toHTML(Blaze.With(
