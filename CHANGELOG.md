@@ -1,9 +1,10 @@
 # Changelog - kriegslustig:altboiler
 
-## 0.5.0 [UNRELEASED]
+## 0.5.0
 * Fix passing functions to altboiler.configuration.js
 * Fix a bug in the default action
 * Make the loader fade in to prevent flashing
+* Add deep-merge
 
 ## 0.4.1
 * Fix `altboiler.set`
