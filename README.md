@@ -71,9 +71,30 @@ Inside the action you might render a template and bind some data-context. To mak
 
 **config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the temp one will be used. [Check the **configuration-section** for more info](#configuration)
 
-This function sets temporary configuration options. The object passed to this function is used to render the boilerplate once and is emptied after that. It's saved inside `altboiler.tmpConf`. You might also want to use different loading screens for different routes. That's what `altboiler.set` is for. Here's a minimal example using `iron:router`:
+This function sets temporary configuration options. The object passed to this function is used to render the boilerplate once and is emptied after that. It's saved inside `altboiler.tmpConf`. This object is _deep-merged_ with the `altboiler.configuration` object. By _deep-merge_ I mean that if an option inside `altboiler.configuration` is set to an array, the values inside it will persist. The following will output _"Thanks for all the fish!"_ when meteor is loaded.
+
+`server/loader.js`
+
+```js
+
+altboiler.config({
+  onLoad: [function () {
+      console.log('Thanks for')
+  }]
+})
+
+altboiler.set({
+  onLoad: function () {
+    console.log('all the fish!')
+  }
+})
+
+```
+
+You may want to use different loading screens for different routes. That's what `altboiler.set` is for. Here's a minimal example using `iron:router`:
 
 `server/routes.js`
+
 ```js
 Router.route('/', function () {
   altboiler.set({
@@ -84,6 +105,7 @@ Router.route('/', function () {
 ```
 
 `client/routes.js`
+
 ```js
 Router.route('/', {
   name: 'home'
