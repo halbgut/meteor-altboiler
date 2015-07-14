@@ -72,4 +72,12 @@ Tinytest.add('altboiler.set', function (test) {
   reqStump = newReqStump()
   altboiler.Boilerplate(reqStump[0], reqStump[1])
   test.isFalse(/\.titanic/g.test(reqStump.getEnd()), 'altboiler.Boilerplate should only use the passed options once')
+  var func1 = function () {console.log('unique1')}
+  var func2 = function () {console.log('unique2')}
+  altboiler.config({onLoad: [func1]})
+  altboiler.set({onLoad: func2})
+  var reqStump2 = newReqStump()
+  altboiler.serveBoilerplate(reqStump2[0], reqStump2[1])
+  test.isTrue(reqStump2.getEnd().indexOf(func1.toString()), 'An option which is an array shouldn\'t be overriden by config')
+  test.isTrue(reqStump2.getEnd().indexOf(func2.toString()), 'An option which is an array set using set should be merged with the configuration')
 })
