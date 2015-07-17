@@ -151,3 +151,4 @@ This function is largely for internal use. It wraps the `altboiler.Boilerplate` 
 
 ## TODO
 * Go over the README
+* Stop concatenating the scripts to make debugging easier
