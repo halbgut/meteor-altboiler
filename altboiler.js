@@ -26,15 +26,13 @@ _Altboiler = function Altboiler (
    * The default configuration
    */
   altboiler.configuration = {
-    /* action
-     * The action called inside the load template
-     */
     content: '',
     action: Assets.getText('assets/default.html'),
     css: [Assets.getText('assets/styles.css')],
     js: [Assets.getText('assets/fader.js')],
     onLoad: [],
-    showLoader: true
+    showLoader: true,
+    appScript: '/altboiler/main.js'
   }
 
   /* altboiler.tmpConf
@@ -70,8 +68,7 @@ _Altboiler = function Altboiler (
       config = config || this.configuration
       return Blaze.toHTML(Blaze.With(
         boilerUtils.getBoilerTemplateData(
-          maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest),
-          APP_SCRIPT,
+          maniUtils.getIncludes(),
           configUtils.execFuncs(config.action),
           config
         ),
@@ -131,7 +128,10 @@ _.defer(function () {
 /*
  * This serves the concatenated app script.
  */
-var allIncludes = maniUtils.getIncludes(WebApp.clientPrograms[CURRENT_ARCH].manifest)
-WebApp.rawConnectHandlers.use(APP_SCRIPT, function (req, res, next) {
-  res.end(maniUtils.getScripts(allIncludes['js']))
-})
+var appScript = maniUtils.getScripts(maniUtils.getIncludes()['js'])
+WebApp.rawConnectHandlers.use(
+  altboiler.configuration.appScript,
+  function (req, res, next) {
+    res.end(appScript)
+  }
+)

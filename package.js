@@ -27,7 +27,6 @@ Package.onUse(function(api) {
   )
   api.addFiles(
     [
-      'lib/statics.js',
       'lib/maniUtils.js',
       'lib/boilerUtils.js',
       'lib/configUtils.js',
