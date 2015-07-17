@@ -1,4 +1,4 @@
-# meteor-altboiler - 0.8.0
+# meteor-altboiler - 0.8.1
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
@@ -151,4 +151,3 @@ This function is largely for internal use. It wraps the `altboiler.Boilerplate` 
 
 ## TODO
 * Go over the README
-* Stop concatenating the scripts to make debugging easier

@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.8.1
+* Internal changes
+
 ## 0.8.0
 * Render the head and body tags directly
 
