@@ -1,5 +1,5 @@
 function newAltboilerWithLoader () {
-  var newAltboiler = new _Altboiler
+  var newAltboiler = Object.create(Altboiler)
   newAltboiler.loader = _.clone(altboiler.loader)
   return newAltboiler
 }

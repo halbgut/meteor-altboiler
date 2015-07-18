@@ -1,9 +1,12 @@
+if(Meteor.isClient) return
+
 function newAltboiler () {
-  return new _Altboiler(
-    _altboilerScope.maniUtils,
-    _altboilerScope.boilerUtils,
-    _altboilerScope.configUtils
-  )
+  var newAltboiler = Object.create(Altboiler)
+  newAltboiler.configuration = {
+    appScript: '/altboiler/main.js',
+    showLoader: true
+  }
+  return newAltboiler
 }
 
 function cleanLB (str) {
@@ -22,6 +25,7 @@ function newReqStump () {
         end = str
       }
     },
+    2: function () {/* Stumpy stump */},
     getEnd: function () {
       return end
     }
@@ -70,7 +74,7 @@ Tinytest.add('altboiler.set', function (test) {
   test.isTrue(altboiler.set({test:true}).test, 'It should return the object that is passed to it.')
   altboiler.set({css: '.titanic {float: none}'})
   var reqStump = newReqStump()
-  altboiler.serveBoilerplate(reqStump[0], reqStump[1])
+  altboiler.serveBoilerplate(reqStump[0], reqStump[1], reqStump[2])
   test.isTrue(/\.titanic/g.test(reqStump.getEnd()), 'altboiler.Boilerplate should use the passed options')
   reqStump = newReqStump()
   altboiler.Boilerplate(reqStump[0], reqStump[1])
@@ -80,7 +84,7 @@ Tinytest.add('altboiler.set', function (test) {
   altboiler.config({onLoad: [func1]})
   altboiler.set({onLoad: func2})
   var reqStump2 = newReqStump()
-  altboiler.serveBoilerplate(reqStump2[0], reqStump2[1])
+  altboiler.serveBoilerplate(reqStump2[0], reqStump2[1], reqStump2[2])
   test.isTrue(reqStump2.getEnd().indexOf(func1.toString()), 'An option which is an array shouldn\'t be overriden by config')
   test.isTrue(reqStump2.getEnd().indexOf(func2.toString()), 'An option which is an array set using set should be merged with the configuration')
 })

@@ -152,3 +152,6 @@ This function is largely for internal use. It wraps the `altboiler.Boilerplate` 
 ## TODO
 * Go over the README
 * Also serve the `content` and `styles` when altboiler isn't beeing served
+* Name the default onLoad hooks
+* Go through all the code and add comments
+* Add comments to the default config

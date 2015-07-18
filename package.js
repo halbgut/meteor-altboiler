@@ -14,6 +14,25 @@ Package.onUse(function(api) {
     'minifiers',
     'spacebars-compiler'
   ])
+
+  /* Importing all libs */
+  api.addFiles(
+    [
+      'lib/maniUtils.js',
+      'lib/boilerUtils.js'
+    ],
+    'server'
+  )
+  api.addFiles(
+    'lib/configUtils.js',
+    ['client', 'server']
+  )
+
+  /* Importing the main files */
+  api.addFiles( 'common.js', ['client', 'server'] )
+  api.addFiles( 'client.js', 'client' )
+  api.addFiles( 'server.js', 'server' )
+
   api.addFiles(
     [
       'assets/default.html',
@@ -25,16 +44,10 @@ Package.onUse(function(api) {
     'server',
     {isAsset: true}
   )
-  api.addFiles(
-    [
-      'lib/maniUtils.js',
-      'lib/boilerUtils.js',
-      'lib/configUtils.js',
-      'altboiler.js'
-    ],
-    'server'
-  )
-  api.export(['altboiler', '_Altboiler', '_altboilerScope'], 'server')
+
+  api.export(
+    ['altboiler', 'Altboiler', '_altboilerScope'],
+    ['client', 'server'])
 });
 
 Package.onTest(function(api) {
