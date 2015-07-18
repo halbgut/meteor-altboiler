@@ -7,15 +7,12 @@ var configUtils = _altboilerScope.configUtils
  *********************************/
 
 /* This shouldn't */
-altboiler.configuration = configUtils.deepMerge({
+altboiler.config({
     content: '',
     action: Assets.getText('assets/default.html'),
     css: [Assets.getText('assets/styles.css')],
     js: [Assets.getText('assets/fader.js')],
-    onLoad: [],
-    showLoader: true,
-    appScript: '/altboiler/main.js'
-}, this.configuration || {})
+})
 
 /* altboiler.Boilerplate()
  * returns the rendered boilerplate
@@ -44,11 +41,10 @@ Altboiler.Boilerplate = (function () {
  * It manipulates the tempConf and checks showLoader
  */
 Altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
-  var self = this
   var config = this.getConfig()
-  self.tmpConf = {}
+  this.tmpConf = {}
   if(configUtils.isTruthy(config.showLoader)) {
-    res.end(self.Boilerplate(config))
+    res.end(this.Boilerplate(config))
   } else {
     next()
   }
@@ -79,8 +75,15 @@ _.defer(function () {
  */
 var appScript = maniUtils.getScripts(maniUtils.getIncludes()['js'])
 WebApp.rawConnectHandlers.use(
-  altboiler.getConfig('appScript'),
+  altboiler.getConfig('routes').main,
   function (req, res, next) {
     res.end(appScript)
   }
 )
+
+/*
+ * This route serves the static css you added via the configuration
+ */
+WebApp.rawConnectHandlers.use(altboiler.getConfig('routes').css, function serveStaticCss (req, res, next) {
+  res.end([].concat(altboiler.getConfig('css')).join('\n'))
+})

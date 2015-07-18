@@ -3,7 +3,10 @@ if(Meteor.isClient) return
 function newAltboiler () {
   var newAltboiler = Object.create(Altboiler)
   newAltboiler.configuration = {
-    appScript: '/altboiler/main.js',
+    routes: {
+      main: '/altboiler/main.js',
+      css: '/altboiler/styles.css',
+    },
     showLoader: true
   }
   return newAltboiler
@@ -52,10 +55,10 @@ Tinytest.add('altboiler.config', function (test) {
     })
     test.matches(cleanLB(altboiler.Boilerplate()), /<body>.*"damn\strolls"/gm, 'The action should be rendered inside the body')
   })()
-  altboiler.configuration = {}
+  altboiler = newAltboiler()
   altboiler.config({ js: function someFunc () {} })
   test.isTrue(cleanLB(altboiler.Boilerplate()).indexOf('(function someFunc() {})()') > -1, 'If I pass a function as configuration.js it should be called when it\'s loaded')
-  altboiler.configuration = {}
+  altboiler = newAltboiler()
   altboiler.config({ content: '<main></main>' })
   test.isTrue(cleanLB(altboiler.Boilerplate()).indexOf('<main></main>'), 'the content option should be rendered')
 })
@@ -77,14 +80,14 @@ Tinytest.add('altboiler.set', function (test) {
   altboiler.serveBoilerplate(reqStump[0], reqStump[1], reqStump[2])
   test.isTrue(/\.titanic/g.test(reqStump.getEnd()), 'altboiler.Boilerplate should use the passed options')
   reqStump = newReqStump()
-  altboiler.Boilerplate(reqStump[0], reqStump[1])
+  altboiler.serveBoilerplate(reqStump[0], reqStump[1])
   test.isFalse(/\.titanic/g.test(reqStump.getEnd()), 'altboiler.Boilerplate should only use the passed options once')
   var func1 = function () {console.log('unique1')}
   var func2 = function () {console.log('unique2')}
   altboiler.config({onLoad: [func1]})
   altboiler.set({onLoad: func2})
   var reqStump2 = newReqStump()
-  altboiler.serveBoilerplate(reqStump2[0], reqStump2[1], reqStump2[2])
+  altboiler.serveBoilerplate(reqStump2[0], reqStump2[1])
   test.isTrue(reqStump2.getEnd().indexOf(func1.toString()), 'An option which is an array shouldn\'t be overriden by config')
   test.isTrue(reqStump2.getEnd().indexOf(func2.toString()), 'An option which is an array set using set should be merged with the configuration')
 })

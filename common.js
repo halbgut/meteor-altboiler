@@ -45,3 +45,16 @@ Altboiler.getConfig = function getConfig (option) {
 }
 
 altboiler = Object.create(Altboiler)
+
+/*
+ * The default common configuration
+ */
+
+altboiler.configuration = {
+  onLoad: [],
+  showLoader: true,
+  routes: {
+    main: '/altboiler/main.js',
+    css: '/altboiler/styles.css'
+  }
+ }
