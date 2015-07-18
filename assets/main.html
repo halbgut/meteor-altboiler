@@ -20,11 +20,12 @@
       altboiler.loader.onLoad(altboiler.loader.headAppender({{{ css }}}))
       altboiler.loader.onLoad(altboiler.loader.removerById('altboiler_onLoadHooks'))
       altboiler.loader.onLoad(altboiler.loader.removerById('altboiler_boilerPlateLoader'))
+      var _altboilerLoader = altboiler.loader
     </script>
   </div>
   <script id="altboiler_appScripts" type="text/javascript" src="{{ appScript }}"></script>
   <script id="altboiler_onLoadHooks" type="text/javascript">
-    altboiler.loader.runOnLoadQueue()
+    _altboilerLoader.runOnLoadQueue()
   </script>
 </body>
 </html>
