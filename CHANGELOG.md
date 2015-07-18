@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.9.1
+* Bug fix in the client-side check for `showLoader`
+
 ## 0.9.0
 * BACKWARDS COMPATIBILITY BREAK: The options `onLoad` and `showLoader` now have to be set in common code (client- and server-side)
 * Big architechtural changes. Use Isomorphic code for configuration
