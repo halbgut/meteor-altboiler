@@ -118,7 +118,7 @@ Router.route('/', {
 All the properties set using `altboiler.config` will be saved inside `altboiler.configuration`. The structure of that object is documented here. Normally you don't need to access this object directly. Some properties need to be configured on client and server. They are marked with *common* in the title.
 
 #### css - *server* - *Array || String*
-An array of strings of CSS or a string of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets). The CSS added via this option will not be deleted onLoad.
+An array of strings of CSS or a string of CSS. The CSS added via this option will be rendered into the loading template. The best way to use this is with [`Assets`](http://docs.meteor.com/#/full/assets). The CSS added via this option will not be deleted onLoad. The CSS defined here will also be requested by the client when `showLoader` is falsy
 
 #### js - *server* - *Array || String || Function*
 Same as the css option. The configured JS will be executed right after `assets/loader.js`. The array may also contain functions. `toString` will be called on these and they will be wrapped in a closure (`(yourfunction)()`). It is then executed after the HTML and CSS is loaded. There is a little problem with this tough. The HTML is not guaranteed to be rendered when this is loaded tough. So you might want to wrap you script inside a `setTimeout(someFunc, 0)`. By default `altboiler.configuration.js` is an array containing a script that makes the load screen nicely fade in and out. So if you want to keep this functionality you may want to use `altboiler.configuration.js.push`.
