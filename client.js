@@ -1,5 +1,7 @@
+var configUtils = _altboilerScope.configUtils
+
 /* Don't do anything if the loader should be shown */
-if(altboiler.getConfig('showLoader')) return
+if(configUtils.isTruthy(altboiler.getConfig('showLoader'))) return
 
 /* Load the static CSS defined for the altboiler */
 document.head.innerHTML +=
