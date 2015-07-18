@@ -48,14 +48,10 @@ Altboiler.getConfig = function getConfig (option) {
   return option ? config[option] : config
 }
 
-/*
- * Create altboiler
- */
+/* Create altboiler */
 altboiler = Object.create(Altboiler)
 
-/*
- * The default common configuration
- */
+/* Configuration options that must be server-side */
 altboiler.configuration = {
   /* Functions to be executed when the app script has loaded */
   onLoad: [],

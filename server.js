@@ -6,7 +6,7 @@ var configUtils = _altboilerScope.configUtils
  *********** DEFINITION **********
  *********************************/
 
-/* This shouldn't */
+/* Configuration options that can be set server-side */
 altboiler.config({
     /* HTML that should be loaded and not removed onLoad */
     content: '',

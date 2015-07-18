@@ -154,5 +154,4 @@ This function is largely for internal use. It wraps the `altboiler.Boilerplate` 
 * Also serve the `content` and `styles` when altboiler isn't beeing served
 * Name the default onLoad hooks
 * Go through all the code and add comments
-* Add comments to the default config
 * Add tests for altboiler.serveBoilerplate
