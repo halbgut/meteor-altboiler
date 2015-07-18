@@ -16,8 +16,8 @@ Altboiler.configuration = false
  */
 Altboiler.config = function config (config) {
   return this.configuration ?
-    (this.configuration = config) :
-    _.extend(this.configuration, config)
+    _.extend(this.configuration, config) :
+    (this.configuration = config)
 }
 
 /* altboiler.tmpConf
