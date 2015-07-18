@@ -8,9 +8,16 @@ var configUtils = _altboilerScope.configUtils
 
 /* This shouldn't */
 altboiler.config({
+    /* HTML that should be loaded and not removed onLoad */
     content: '',
+
+    /* HTML that is removed onLoad */
     action: Assets.getText('assets/default.html'),
+
+    /* CSS that is served with the boilerplate, is also served when the normal boilerplate is loaded */
     css: [Assets.getText('assets/styles.css')],
+
+    /* JS that is removed onLoad */
     js: [Assets.getText('assets/fader.js')],
 })
 

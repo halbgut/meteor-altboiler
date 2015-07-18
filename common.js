@@ -34,6 +34,10 @@ Altboiler.set = function set (config) {
   return this.tmpConf = config
 }
 
+/* altboiler.getConfig(option)
+ * `option` the key of a cretain option
+ * Deep-merges tempConf and configuration and returns it
+ */
 Altboiler.getConfig = function getConfig (option) {
   /* Tolerance for when `altboiler.set` isn't called */
   this.tmpConf = this.tmpConf || {}
@@ -44,17 +48,27 @@ Altboiler.getConfig = function getConfig (option) {
   return option ? config[option] : config
 }
 
+/*
+ * Create altboiler
+ */
 altboiler = Object.create(Altboiler)
 
 /*
  * The default common configuration
  */
-
 altboiler.configuration = {
+  /* Functions to be executed when the app script has loaded */
   onLoad: [],
+
+  /* Wether to load altboiler or the default boilerplate */
   showLoader: true,
+
+  /* Mainly for internal purposes, they may be changed. I don't see a reason why dough */
   routes: {
+    /* The route where the main (meteor) app script should be served */
     main: '/altboiler/main.js',
+
+    /* The route where the css defined inside altboiler should be served */
     css: '/altboiler/styles.css'
   }
  }
