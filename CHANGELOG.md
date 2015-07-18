@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.9.2
+* Fix of a fix of client-side `showLoader` check
+
 ## 0.9.1
 * Bug fix in the client-side check for `showLoader`
 
