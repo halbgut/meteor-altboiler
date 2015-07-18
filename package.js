@@ -47,7 +47,8 @@ Package.onUse(function(api) {
 
   api.export(
     ['altboiler', 'Altboiler', '_altboilerScope'],
-    ['client', 'server'])
+    ['client', 'server']
+  )
 });
 
 Package.onTest(function(api) {
