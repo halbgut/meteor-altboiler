@@ -67,4 +67,4 @@ altboiler.configuration = {
     /* The route where the css defined inside altboiler should be served */
     css: '/altboiler/styles.css'
   }
- }
+}
