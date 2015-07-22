@@ -30,6 +30,8 @@ meteor install kriegslustig:altboiler
 
 ## Usage
 
+`server/`
+
 ```js
 // Render a file saved in private/myLoadScreen.html as the loading screen
 altboiler.config({
@@ -41,6 +43,14 @@ altboiler.config({
   // Render a file saved in private/myLoadStyles.css as CSS inside the loading screen
   css: Assets.getText('myLoadScript.css')
 })
+```
+
+`altboiler` merges all loaded scripts into a singe `main.js`. I have to do that, to insure load order. That often poses a problem when debugging. You can use the `showLoader` option to turn altboiler off. You may use an env-var to set the option on inside your dev environment.
+
+`server/`
+
+```js
+if(process.env.meteor_environment) altboiler.config({ showLoader: false })
 ```
 
 ## API
