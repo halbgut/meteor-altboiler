@@ -1,10 +1,27 @@
 var maniUtils = _altboilerScope.maniUtils
 var boilerUtils = _altboilerScope.boilerUtils
 var configUtils = _altboilerScope.configUtils
+var StaticUtils = _altboilerScope.StaticUtils
 
 /*********************************
  *********** DEFINITION **********
  *********************************/
+
+
+altboiler._staticFiles = Object.create(StaticUtils)
+altboiler._staticFiles.add(
+  'script',
+  altboiler.getConfig('routes').script,
+  maniUtils
+    .getScripts(maniUtils.getIncludes()['js'])
+)
+altboiler._staticFiles.add(
+  'styles',
+  altboiler.getConfig('routes').styles,
+  []
+    .concat(altboiler.getConfig('css'))
+    .join('\n')
+)
 
 /* Configuration options that can be set server-side */
 altboiler.config({
@@ -33,7 +50,8 @@ Altboiler.Boilerplate = (function () {
       boilerUtils.getBoilerTemplateData(
         maniUtils.getIncludes(),
         configUtils.execFuncs(config.action),
-        config
+        config,
+        this._staticFiles.get('script').url
       ),
       eval(mainTemplate)
     ))
@@ -80,17 +98,25 @@ _.defer(function () {
 /*
  * This serves the concatenated app script.
  */
-var appScript = maniUtils.getScripts(maniUtils.getIncludes()['js'])
-WebApp.rawConnectHandlers.use(
-  altboiler.getConfig('routes').main,
-  function (req, res, next) {
-    res.end(appScript)
-  }
-)
+; (function () {
+  var scriptFile = altboiler._staticFiles.get('script')
+  WebApp.rawConnectHandlers.use(
+    scriptFile.path,
+    function (req, res, next) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000')
+      res.setHeader('ETag', scriptFile.etag)
+      res.setHeader('Last-Modified', scriptFile.lastModified)
+      res.end(scriptFile.file)
+    }
+  )
+})()
 
 /*
  * This route serves the static css you added via the configuration
  */
-WebApp.rawConnectHandlers.use(altboiler.getConfig('routes').css, function serveStaticCss (req, res, next) {
-  res.end([].concat(altboiler.getConfig('css')).join('\n'))
-})
+WebApp.rawConnectHandlers.use(
+  altboiler._staticFiles.get('styles').path,
+  function serveStaticCss (req, res, next) {
+    res.end(altboiler._staticFiles.get('styles').file)
+  }
+)

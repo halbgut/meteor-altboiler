@@ -11,6 +11,7 @@ Package.onUse(function(api) {
   api.use([
     'underscore',
     'webapp',
+    'sha',
     'minifiers',
     'spacebars-compiler'
   ])
@@ -19,7 +20,8 @@ Package.onUse(function(api) {
   api.addFiles(
     [
       'lib/maniUtils.js',
-      'lib/boilerUtils.js'
+      'lib/boilerUtils.js',
+      'lib/staticUtils.js',
     ],
     'server'
   )

@@ -62,9 +62,9 @@ altboiler.configuration = {
   /* Mainly for internal purposes, they may be changed. I don't see a reason why dough */
   routes: {
     /* The route where the main (meteor) app script should be served */
-    main: '/altboiler/main.js',
+    script: '/altboiler/main.js',
 
     /* The route where the css defined inside altboiler should be served */
-    css: '/altboiler/styles.css'
+    styles: '/altboiler/styles.css'
   }
 }
