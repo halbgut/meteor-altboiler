@@ -7,37 +7,6 @@ var StaticUtils = _altboilerScope.StaticUtils
  *********** DEFINITION **********
  *********************************/
 
-
-altboiler._staticFiles = Object.create(StaticUtils)
-altboiler._staticFiles.add(
-  'script',
-  altboiler.getConfig('routes').script,
-  maniUtils
-    .getScripts(maniUtils.getIncludes()['js'])
-)
-altboiler._staticFiles.add(
-  'styles',
-  altboiler.getConfig('routes').styles,
-  []
-    .concat(altboiler.getConfig('css'))
-    .join('\n')
-)
-
-/* Configuration options that can be set server-side */
-altboiler.config({
-    /* HTML that should be loaded and not removed onLoad */
-    content: '',
-
-    /* HTML that is removed onLoad */
-    action: Assets.getText('assets/default.html'),
-
-    /* CSS that is served with the boilerplate, is also served when the normal boilerplate is loaded */
-    css: [Assets.getText('assets/styles.css')],
-
-    /* JS that is removed onLoad */
-    js: [Assets.getText('assets/fader.js')],
-})
-
 /* altboiler.Boilerplate()
  * returns the rendered boilerplate
  * It renderes the template `assets/main.html`
@@ -74,6 +43,47 @@ Altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
     next()
   }
 }
+
+/* Altboiler.addFiles()
+ * Adds all files to staticUtils
+ */
+Altboiler.addFiles = function AltboilerAddFiles () {
+  this._staticFiles.add(
+    'script',
+    this.getConfig('routes').script,
+    maniUtils
+      .getScripts(maniUtils.getIncludes()['js'])
+  )
+  this._staticFiles.add(
+    'styles',
+    this.getConfig('routes').styles,
+    []
+      .concat(this.getConfig('css'))
+      .join('\n')
+  )
+}
+
+/*********************************
+ ********** CONFIGURATION ********
+ *********************************/
+
+altboiler._staticFiles = Object.create(StaticUtils)
+altboiler.addFiles()
+
+/* Configuration options that can be set server-side */
+altboiler.config({
+    /* HTML that should be loaded and not removed onLoad */
+    content: '',
+
+    /* HTML that is removed onLoad */
+    action: Assets.getText('assets/default.html'),
+
+    /* CSS that is served with the boilerplate, is also served when the normal boilerplate is loaded */
+    css: [Assets.getText('assets/styles.css')],
+
+    /* JS that is removed onLoad */
+    js: [Assets.getText('assets/fader.js')],
+})
 
 /*********************************
  ***** LISTEN FOR CONNECTIONS ****
