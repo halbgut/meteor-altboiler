@@ -1,5 +1,9 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.9.3
+* Respect the `If-None-Match` header-field
+* Refactor the static file serving
+
 ## 0.9.2
 * Fix of a fix of client-side `showLoader` check
 
