@@ -67,9 +67,6 @@ Altboiler.addFiles = function AltboilerAddFiles () {
  ********** CONFIGURATION ********
  *********************************/
 
-altboiler._staticFiles = Object.create(StaticUtils)
-altboiler.addFiles()
-
 /* Configuration options that can be set server-side */
 altboiler.config({
     /* HTML that should be loaded and not removed onLoad */
@@ -84,6 +81,9 @@ altboiler.config({
     /* JS that is removed onLoad */
     js: [Assets.getText('assets/fader.js')],
 })
+
+altboiler._staticFiles = Object.create(StaticUtils)
+altboiler.addFiles()
 
 /*********************************
  ***** LISTEN FOR CONNECTIONS ****
@@ -108,13 +108,10 @@ _.defer(function () {
 /*
  * This serves the concatenated app script.
  */
-; (function () {
-  var scriptFile = altboiler._staticFiles.get('script')
-  WebApp.rawConnectHandlers.use(
-    scriptFile.path,
-    altboiler._staticFiles.server('script')
-  )
-})()
+WebApp.rawConnectHandlers.use(
+  altboiler._staticFiles.get('script').path,
+  altboiler._staticFiles.server('script')
+)
 
 /*
  * This route serves the static css you added via the configuration
