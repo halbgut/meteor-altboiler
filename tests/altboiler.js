@@ -1,14 +1,18 @@
 if(Meteor.isClient) return
 
+var StaticUtils = _altboilerScope.StaticUtils
+
 function newAltboiler () {
   var newAltboiler = Object.create(Altboiler)
   newAltboiler.configuration = {
     routes: {
-      main: '/altboiler/main.js',
-      css: '/altboiler/styles.css',
+      script: '/altboiler/main.js',
+      styles: '/altboiler/styles.css',
     },
     showLoader: true
   }
+  newAltboiler._staticFiles = Object.create(StaticUtils)
+  newAltboiler.addFiles()
   return newAltboiler
 }
 
@@ -68,7 +72,7 @@ Tinytest.add('altboiler.Boilerplate', function (test) {
   test.isTrue(altboiler.Boilerplate().indexOf('<body>') > -1, 'Its return value should contain a body element')
   test.isFalse(altboiler.Boilerplate().indexOf('<DOCTYPE') > -1, 'Its return value should\'nt contain a doctype')
   test.isTrue(altboiler.Boilerplate().indexOf('<head>') > -1, 'Its return value should contain a head element')
-  test.isTrue(altboiler.Boilerplate().indexOf('src="/altboiler/main.js"') > -1, 'It should render a script tag that gets the /altboiler/main.js')
+  test.isTrue(altboiler.Boilerplate().indexOf('src="/altboiler/main.js') > -1, 'It should render a script tag that gets the /altboiler/main.js')
 })
 
 Tinytest.add('altboiler.set', function (test) {
