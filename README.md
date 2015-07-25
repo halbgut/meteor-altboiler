@@ -14,6 +14,8 @@ Don't hesitate to create an Issue just check the [TODO](https://github.com/Krieg
 
 - [Installing](#installing)
 - [Usage](#usage)
+  - [Caching](#caching)
+  - [Development](#development)
 - [API](#api)
   - [`altboiler.config`](#altboilerconfigconfig---server)
   - [`altboiler.set`](#altboilersetconfig---server)
@@ -44,6 +46,12 @@ altboiler.config({
   css: Assets.getText('myLoadScript.css')
 })
 ```
+
+### Caching
+
+`altboiler` caches the generated files fairly aggressively. The file-cache isn't invalidated when you make changes in your client-side code. That's a reason why you should avoid running `altboiler` while developing. It's only invalidated when the server is restarted. `altboiler` also uses HTTP head-fields to cache client-side.
+
+### Development
 
 `altboiler` merges all loaded scripts into a singe `main.js`. I have to do that, to insure load order. That often poses a problem when debugging. You can use the `showLoader` option to turn altboiler off. You may use an env-var to set the option on inside your dev environment.
 
