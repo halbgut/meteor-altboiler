@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 0.10.1
+* Fix the static CSS beeing served
+
 ## 0.10.0
 * BREAK: Rename the routes to `styles` and `script`
 * Respect the `If-None-Match` header-field
