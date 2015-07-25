@@ -102,12 +102,7 @@ _.defer(function () {
   var scriptFile = altboiler._staticFiles.get('script')
   WebApp.rawConnectHandlers.use(
     scriptFile.path,
-    function (req, res, next) {
-      res.setHeader('Cache-Control', 'public, max-age=31536000')
-      res.setHeader('ETag', scriptFile.etag)
-      res.setHeader('Last-Modified', scriptFile.lastModified)
-      res.end(scriptFile.file)
-    }
+    altboiler._staticFiles.server('script')
   )
 })()
 
@@ -116,7 +111,5 @@ _.defer(function () {
  */
 WebApp.rawConnectHandlers.use(
   altboiler._staticFiles.get('styles').path,
-  function serveStaticCss (req, res, next) {
-    res.end(altboiler._staticFiles.get('styles').file)
-  }
+  altboiler._staticFiles.server('styles')
 )
