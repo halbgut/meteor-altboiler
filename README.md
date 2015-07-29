@@ -2,13 +2,9 @@
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
-Loading meteor on slow networks sometimes can take more than a minute. It is huge. This makes for an awful UX. With this package you can server static HTML first and then load meteor in the background. You could for example serve a loading screen first. Or you could also render the whole site without the parts that need a connection to the server first.
+Loading meteor sometimes take a long time. It is huge compared to a traditional site. For your regular mobile user (~750Kbps) it will take 6 seconds to load. This makes for an awful UX. With altboiler you can serve static HTML first and then load meteor in the background. You could for example serve a loading screen first. Or you could also preload the whole site without the parts that need a connection to the server.
 
 [You can see a demo page here](http://altboiler.meteor.com/).
-
-## Issues
-
-Don't hesitate to create an Issue just check the [TODO](https://github.com/Kriegslustig/meteor-altboiler#todo) section first. If you're not sure if it's a bug or an issue with your set up, just PM me. :)
 
 ## Table of Contents
 
@@ -16,12 +12,14 @@ Don't hesitate to create an Issue just check the [TODO](https://github.com/Krieg
 - [Usage](#usage)
   - [Caching](#caching)
   - [Development](#development)
+- [Abstract](#abstract)
 - [API](#api)
-  - [`altboiler.config`](#altboilerconfigconfig---server)
-  - [`altboiler.set`](#altboilersetconfig---server)
+  - [`altboiler.config`](#altboilersetconfig---common)
+  - [`altboiler.set`](#altboilersetconfig---common)
   - [`altboiler.configuration`](#altboilerconfiguration)
   - [`altboiler.Boilerplate`](#altboilerboilerplateconfig)
   - [`altboiler.serveBoilerplate`](#altboilerserveboilerplatereq-res-next)
+  - [`altboiler.getConfig`](#altboilergetConfigoption---common)
 - [TODO](#todo)
 
 ## Installing
@@ -47,6 +45,8 @@ altboiler.config({
 })
 ```
 
+To see an example using _all_ features, check the [example page's repository](https://github.com/Kriegslustig/altboiler-meteor-com)
+
 ### Caching
 
 `altboiler` caches the generated files fairly aggressively. The file-cache isn't invalidated when you make changes in your client-side code. That's a reason why you should avoid running `altboiler` while developing. It's only invalidated when the server is restarted. `altboiler` also uses HTTP head-fields to cache client-side.
@@ -61,9 +61,9 @@ altboiler.config({
 if(process.env.meteor_environment) altboiler.config({ showLoader: false })
 ```
 
-## API
+## Abstract
 
-The package installs two `connect`-handles. One on `WebApp.rawConnectHandlers` and one on `WebApp.connectHandlers`. The latter is used to serve the loader (load-screen). It simply doesn't call the `next` callback to prevent the meteor core from loading. The former, raw handler is for the app-script. It compiles all files inside the manifest and serves it as one file.
+I chose the name _altboiler_ because it's function is to replace the core `boilerplate-generator` package. So it's **alt**ernative **boiler**plate_. The package installs two main `connect`-handles. One on `WebApp.rawConnectHandlers` and one on `WebApp.connectHandlers`. The latter serves the loader (load-screen) if the `showLoader` option is set to a truthy value. It also prevents the meteor core from loading. The former, raw handler is for the app-script. It compiles all files inside the manifest and serves it as one file.
 
 When a client hits the server it responds with the rendered altboiler `Boilerplate`. Its basically rendering [`assets/main.html`](https://github.com/Kriegslustig/meteor-altboiler/blob/master/assets/main.html). Here's an overview of what happens inside;
 
@@ -72,18 +72,20 @@ When a client hits the server it responds with the rendered altboiler `Boilerpla
 * Your action-HTML loads (`altboiler.configuration.action`)
 * Your script loads (`altboiler.configuration.js`)
 * The loader-script ([`assets/loader`](https://github.com/Kriegslustig/meteor-altboiler/blob/master/assets/loader.js)) gets loaded
-* All the `altboiler.configuration.onLoad` get installed
-* The return value of `altboiler.configuration.action` gets loaded
+* All the `altboiler.configuration.onLoad`-hooks get installed
 * The app-script is loaded over the raw connect-handler
 * `onLoad` hook triggers
+* All the temporary HTML gets removed
+
+## API
 
 ### altboiler.config(config) - *common*
 
 **config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the new one will be used. [Check the **configuration-section** for more info](#configuration)
 
-This configures altboiler. The configuration is saved in `altboiler.configuration`.
+This configures altboiler. **Certain options must be set on the client, but most can be set on both sides**. The configuration is saved in `altboiler.configuration`.
 
-##### When to call altboiler.config
+#### When to call altboiler.config
 
 Inside the action you might render a template and bind some data-context. To make the server's first response as quick as possible, you'll want to decrease the times a loading template is rendered. If your data is static, that's easy to do. You can just put the call to `altboiler.config` inside a `Meteor.startup` call and pass the rendered template instead of passing the render function. That way the template is only rendered once. If you are displaying data that could change, you'll need to put the call to `altboiler.config` outside of the `Meteor.startup` call. This makes things slower dough. Now every time a client requests your site, the template is rendered server-side. What you could do is use a [`cursor.observe`](https://docs.meteor.com/#/full/observe) and then call `altboiler.config` every time something changes. That'll make responses just as fast as they were before.
 
@@ -176,6 +178,5 @@ This function is largely for internal use. It wraps the `altboiler.Boilerplate` 
 This deep-merges `tmpConf` and `configuration` and returns the new value. If an option is passed, the value of that key is returned.
 
 ## TODO
-* Go over the README
 * Name the default onLoad hooks
 * Add tests for altboiler.serveBoilerplate
