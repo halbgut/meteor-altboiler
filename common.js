@@ -15,9 +15,11 @@ Altboiler.configuration = false
  * returns the new configuration
  */
 Altboiler.config = function config (config) {
-  return this.configuration ?
-    _.extend(this.configuration, config) :
-    (this.configuration = config)
+  return this.configuration = (
+    this.configuration ?
+      configUtils.deepMerge(this.configuration, config) :
+      config
+  )
 }
 
 /* altboiler.tmpConf
