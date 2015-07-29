@@ -1,5 +1,10 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.0.0
+* Fix the static CSS beeing served
+* Fix the fader
+* Make `altboiler.config` deep-merge
+
 ## 0.10.1
 * Fix the static CSS beeing served
 
