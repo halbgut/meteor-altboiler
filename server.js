@@ -63,6 +63,7 @@ Altboiler.addFiles = function AltboilerAddFiles () {
   )
 }
 
+
 /*********************************
  ********** CONFIGURATION ********
  *********************************/
@@ -84,6 +85,7 @@ altboiler.config({
 
 altboiler._staticFiles = Object.create(StaticUtils)
 altboiler.addFiles()
+
 
 /*********************************
  ***** LISTEN FOR CONNECTIONS ****
