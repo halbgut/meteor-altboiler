@@ -81,7 +81,7 @@ When a client hits the server it responds with the rendered altboiler `Boilerpla
 
 ### altboiler.config(config) - *common*
 
-**config** - `Object`: An object holding configuration options. They will be merged with the current configuration. When properties already exist, the new one will be used. [Check the **configuration-section** for more info](#configuration)
+**config** - `Object`: An object holding configuration options. They will be deep-merged with the current configuration. When properties already exist, the new one will be used. [Check the **configuration-section** for more info](#configuration)
 
 This configures altboiler. **Certain options must be set on the client, but most can be set on both sides**. The configuration is saved in `altboiler.configuration`.
 
