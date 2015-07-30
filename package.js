@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.use([
     'underscore',
     'webapp',
-    'sha',
+    'base64',
     'minifiers',
     'spacebars-compiler'
   ])
