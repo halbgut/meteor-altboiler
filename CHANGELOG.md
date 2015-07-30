@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.0.1
+* Small performance improvement at initial server start
+
 ## 1.0.0
 * Fix the static CSS beeing served
 * Fix the fader

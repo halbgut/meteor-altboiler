@@ -1,4 +1,4 @@
-# meteor-altboiler - 1.0.0
+# meteor-altboiler - 1.0.1
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 
@@ -179,3 +179,4 @@ This deep-merges `tmpConf` and `configuration` and returns the new value. If an 
 
 ## TODO
 * Add tests for altboiler.serveBoilerplate
+* Less restrictive version dependency
