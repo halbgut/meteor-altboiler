@@ -94,4 +94,9 @@ Tinytest.add('altboiler.set', function (test) {
   altboiler.serveBoilerplate(reqStump2[0], reqStump2[1])
   test.isTrue(reqStump2.getEnd().indexOf(func1.toString()), 'An option which is an array shouldn\'t be overriden by config')
   test.isTrue(reqStump2.getEnd().indexOf(func2.toString()), 'An option which is an array set using set should be merged with the configuration')
+  reqStump = newReqStump()
+
+  altboiler.set({showLoader: false})
+  altboiler.serveBoilerplate(reqStump[0], reqStump[1], reqStump[2])
+  test.equal(reqStump.getEnd().length, 0, 'If showloader is set to false, it shouldn\'t show')
 })
