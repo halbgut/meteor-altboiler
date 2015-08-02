@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.2.0
+* Stop caching /altboiler/styles.css
+
 ## 1.1.2
 * Fix the path to the linked loader css
 
