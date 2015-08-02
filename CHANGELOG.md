@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.1.0
+* Deep-merge configuration made with `altboiler.set`
+
 ## 1.0.1
 * Small performance improvement at initial server start
 
