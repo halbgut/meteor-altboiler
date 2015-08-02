@@ -33,7 +33,7 @@ Altboiler.config = function config (config) {
  * The options configured here will only be used once
  */
 Altboiler.set = function set (config) {
-  return this.tmpConf = config
+  return this.tmpConf = configUtils.deepMerge(this.tmpConf || {}, config)
 }
 
 /* altboiler.getConfig(option)
