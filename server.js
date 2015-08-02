@@ -48,18 +48,21 @@ Altboiler.serveBoilerplate = function serveBoilerplate (req, res, next) {
  * Adds all files to staticUtils
  */
 Altboiler.addFiles = function AltboilerAddFiles () {
-  this._staticFiles.add(
+  var self = this
+  self._staticFiles.add(
     'script',
-    this.getConfig('routes').script,
+    self.getConfig('routes').script,
     maniUtils
       .getScripts(maniUtils.getIncludes()['js'])
   )
-  this._staticFiles.add(
+  self._staticFiles.add(
     'styles',
-    this.getConfig('routes').styles,
-    []
-      .concat(this.getConfig('css'))
-      .join('\n')
+    self.getConfig('routes').styles,
+    function css () {
+      return []
+        .concat(self.getConfig('css'))
+        .join('\n')
+    }
   )
 }
 
