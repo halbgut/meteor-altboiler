@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.1.1
+* Fix the client-side tmpConf
+
 ## 1.1.0
 * Deep-merge configuration made with `altboiler.set`
 
