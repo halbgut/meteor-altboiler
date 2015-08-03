@@ -106,11 +106,11 @@ altboiler.addFiles()
  * try add a handler to serve a ressource asynchronously.
  * That's why the `showLoader` options exists.
  */
-_.defer(function () {
+setTimeout(function () {
   WebApp.connectHandlers.use(
     altboiler.serveBoilerplate.bind(altboiler)
   )
-})
+}, 10)
 
 /*
  * This serves the concatenated app script.
