@@ -178,3 +178,4 @@ This function is largely for internal use. It wraps the `altboiler.Boilerplate` 
 This deep-merges `tmpConf` and `configuration` and returns the new value. If an option is passed, the value of that key is returned.
 
 ## TODO
+* Evaluate other options for serving the CSS configured via altboiler when `showLoader` is falsy.
