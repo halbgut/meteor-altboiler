@@ -1,5 +1,9 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.3.0
+* Add proper content-type headers
+* Bug fix: Add connectHandlers after iron:router
+
 ## 1.2.0
 * Stop caching /altboiler/styles.css
 

@@ -1,6 +1,6 @@
 Package.describe({
   name: 'kriegslustig:altboiler',
-  version: '1.2.0',
+  version: '1.3.0',
   summary: ' A non render-blocking alternative to the Meteor-core boilerplate-generator package',
   git: 'https://github.com/Kriegslustig/meteor-altboiler',
   documentation: 'README.md'
