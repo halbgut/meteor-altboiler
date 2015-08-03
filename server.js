@@ -53,7 +53,8 @@ Altboiler.addFiles = function AltboilerAddFiles () {
     'script',
     self.getConfig('routes').script,
     maniUtils
-      .getScripts(maniUtils.getIncludes()['js'])
+      .getScripts(maniUtils.getIncludes()['js']),
+    'js'
   )
   self._staticFiles.add(
     'styles',
@@ -62,7 +63,8 @@ Altboiler.addFiles = function AltboilerAddFiles () {
       return []
         .concat(self.getConfig('css'))
         .join('\n')
-    }
+    },
+    'css'
   )
 }
 
@@ -113,7 +115,7 @@ _.defer(function () {
 /*
  * This serves the concatenated app script.
  */
-WebApp.rawConnectHandlers.use(
+WebApp.connectHandlers.use(
   altboiler._staticFiles.get('script').path,
   altboiler._staticFiles.server('script')
 )
@@ -121,7 +123,7 @@ WebApp.rawConnectHandlers.use(
 /*
  * This route serves the static css you added via the configuration
  */
-WebApp.rawConnectHandlers.use(
+WebApp.connectHandlers.use(
   altboiler._staticFiles.get('styles').path,
   altboiler._staticFiles.server('styles')
 )
