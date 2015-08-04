@@ -1,5 +1,9 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.3.1
+* Internal changes in caching
+* Load the CSS before executing onLoad hooks
+
 ## 1.3.0
 * Add proper content-type headers
 * Bug fix: Add connectHandlers after iron:router
