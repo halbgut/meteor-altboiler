@@ -16,7 +16,7 @@
     {{{ action }}}
     <script type="text/javascript">
       {{{ script }}}
-      altboiler.loader.onLoad(altboiler.loader.headAppender({{{ css }}}))
+      altboiler.loader.headAppender({{{ css }}})
       altboiler.loader.onLoad({{ onLoadHooks }})
       altboiler.loader.onLoad(altboiler.loader.removerById('altboiler_onLoadHooks'))
       altboiler.loader.onLoad(altboiler.loader.removerById('altboiler_boilerPlateLoader'))
