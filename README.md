@@ -1,4 +1,4 @@
-# meteor-altboiler - 1.3.1
+# meteor-altboiler - 1.3.2
 
 A non render-blocking alternative to the Meteor-core boilerplate-generator package.
 

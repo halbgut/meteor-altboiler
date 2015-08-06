@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.3.2
+* Render the apps CSS tags right after the loader is rendered
+
 ## 1.3.1
 * Internal changes in caching
 * Load the CSS before executing onLoad hooks
