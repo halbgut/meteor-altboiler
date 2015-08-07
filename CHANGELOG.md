@@ -1,5 +1,8 @@
 # Changelog - kriegslustig:altboiler
 
+## 1.3.3
+* Small bugfix in rendering app-styles
+
 ## 1.3.2
 * Render the apps CSS tags right after the loader is rendered
 
